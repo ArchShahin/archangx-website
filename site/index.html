@@ -4,220 +4,74 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ArchangX — Space Data Centres, Wildfire AI and Digital Twins</title>
-<meta name="description" content="ArchangX builds orbital data platforms: machine-learning wildfire detection, the technology stack of space data centres, and digital twins that test them before launch.">
+<meta name="description" content="ArchangX builds orbital data platforms: a space data centre technology stack and its digital twin, with machine-learning wildfire detection on top.">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta property="og:title" content="ArchangX">
-<meta property="og:description" content="Space data centres, wildfire AI and digital twins.">
+<meta property="og:title" content="ArchangX — Space Data Centres, Wildfire AI and Digital Twins">
+<meta property="og:description" content="ArchangX builds orbital data platforms: a space data centre technology stack and its digital twin, with machine-learning wildfire detection on top.">
 <meta property="og:image" content="https://www.archangx.com/assets/logo.png">
-<style>
-  /* Palette from the logo: matrix-green wings, orange-to-magenta flame, black serif wordmark. */
-  :root {
-    --paper: #fbfaf7; --ink: #121614; --muted: #56605a; --line: #e4e2db;
-    --wing: #0f5a32; --wing-bright: #2fbf71; --flame-1: #f8a83a; --flame-2: #f0634f; --flame-3: #e8197b;
-    --night: #0d1310; --night-ink: #eef1ec;
-    --flame: linear-gradient(90deg, var(--flame-1), var(--flame-2) 55%, var(--flame-3));
-    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); }
-  img { max-width: 100%; display: block; }
-  a { color: var(--wing); }
-  .wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: .01em; text-wrap: balance; margin: 0; }
-  h2 { font-size: clamp(30px, 4.5vw, 44px); line-height: 1.1; }
-  h3 { font-size: 21px; }
-  p { margin: 0; max-width: 64ch; }
-  .eyebrow { font: 600 13px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--wing); }
-  .flame-text { background: var(--flame); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  :focus-visible { outline: 3px solid var(--flame-2); outline-offset: 3px; }
-
-  /* header */
-  header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--paper) 88%, transparent);
-           backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
-  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink);
-           font: 600 20px var(--serif); letter-spacing: .32em; }
-  .brand img { width: 64px; }
-  nav { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; }
-  nav a { color: var(--ink); text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
-  nav a:hover { border-bottom-color: var(--flame-2); }
-
-  /* hero */
-  .hero { text-align: center; padding-block: 56px 72px; display: grid; justify-items: center; gap: 22px; }
-  .hero img { width: min(620px, 100%); }
-  .hero h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.2; max-width: 30ch; }
-  .hero p { color: var(--muted); font-size: 18px; }
-  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; width: 100%; margin-top: 18px; }
-  .pillar { display: grid; justify-items: center; gap: 8px; padding: 18px 14px; border: 1px solid var(--line);
-            border-radius: 14px; background: #fff; text-decoration: none; color: var(--ink); transition: transform .2s; }
-  .pillar:hover { transform: translateY(-3px); }
-  .pillar img { width: 72px; }
-  .pillar b { font: 600 18px var(--serif); }
-  .pillar span { font-size: 14px; color: var(--muted); }
-
-  /* sections */
-  section.topic { position: relative; padding-block: 84px; border-top: 1px solid var(--line); overflow: hidden; }
-  section.topic::before { content: ""; position: absolute; right: -60px; top: 40px; width: 420px; height: 170px;
-           background: url(assets/emblem.png) center / contain no-repeat; opacity: .07; pointer-events: none; }
-  .head { display: grid; gap: 12px; margin-bottom: 34px; }
-  .head .num { display: flex; align-items: center; gap: 10px; }
-  .head .num img { width: 54px; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 8px; align-content: start; }
-  .card::before { content: ""; height: 4px; width: 44px; border-radius: 4px; background: var(--flame); }
-  .card p { color: var(--muted); font-size: 16px; }
-
-  /* wildfire flow */
-  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 26px; font: 600 14px var(--sans); }
-  .flow span { padding: 8px 14px; border-radius: 99px; background: #fff; border: 1px solid var(--line); }
-  .flow i { color: var(--flame-2); font-style: normal; }
-
-  /* stack diagram */
-  .stack { display: grid; gap: 8px; }
-  .layer { display: grid; grid-template-columns: minmax(150px, 230px) 1fr; gap: 16px; align-items: center;
-           padding: 16px 20px; border-radius: 12px; color: #fff; }
-  .layer b { font: 600 18px var(--serif); }
-  .layer span { font-size: 15px; opacity: .92; }
-  .l1 { background: #0b3d23; } .l2 { background: #0f5a32; } .l3 { background: #18774a; }
-  .l4 { background: linear-gradient(90deg, #c4541c, #e8197b); } .l5 { background: #1d2420; }
-  @media (max-width: 640px) { .layer { grid-template-columns: 1fr; gap: 4px; } }
-
-  /* twin models */
-  .models { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 22px; }
-  .model { text-align: center; padding: 18px 10px; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
-  .model b { display: block; font: 600 17px var(--serif); }
-  .model span { font-size: 13px; color: var(--muted); }
-
-  /* exhibitions */
-  .night { background: var(--night); color: var(--night-ink); border-top: 0; }
-  .night .eyebrow { color: var(--wing-bright); }
-  .night p, .night .card p { color: #b9c3bc; }
-  .night .card { background: #141c17; border-color: #26322b; }
-  .topic.night::before { opacity: .14; }
-  .cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-  .btn { display: inline-block; padding: 12px 22px; border-radius: 99px; background: var(--flame); color: #fff;
-         font-weight: 700; text-decoration: none; }
-  .tag { font: 600 12px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--flame-1); }
-
-  footer { background: #080c0a; color: #9aa79f; padding-block: 48px; text-align: center; }
-  footer img { width: min(300px, 70%); margin: 0 auto 16px; }
-  footer nav { justify-content: center; margin-bottom: 14px; }
-  footer nav a { color: #d8e0da; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .pillar { transition: none; } }
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header>
+<header class="site">
   <div class="wrap bar">
-    <a class="brand" href="#top" aria-label="ArchangX home"><img src="assets/emblem-96.png" alt="" width="64" height="25">ARCHANGX</a>
-    <nav aria-label="Sections">
-      <a href="#wildfire">Wildfire AI</a><a href="#stack">Data Centres</a><a href="#twin">Digital Twin</a><a href="#exhibitions">Exhibitions</a>
-    </nav>
+    <a class="brand" href="index.html" aria-label="ArchangX home"><img src="assets/emblem-96.png" alt="" width="64" height="25">ARCHANGX</a>
+    <nav class="main" aria-label="Pages"><a href="index.html" aria-current="page">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="about.html">About Shahin</a><a href="contact.html">Contact</a></nav>
   </div>
 </header>
+<main>
+<div class="wrap hero">
+  <img class="logo" src="assets/logo.png" alt="ArchangX logo: green wings around a flame-shaped heart" width="560" height="284">
+  <h1>Data centres in orbit, <span class="flame-text">intelligence for a planet under fire</span></h1>
+  <p>ArchangX designs orbital data platforms that see wildfires from space, process the data where it is captured, and are proven in a digital twin before anything flies.</p>
+</div>
 
-<main id="top">
-  <div class="wrap hero">
-    <img src="assets/logo.png" alt="ArchangX logo: green wings around a flame-shaped heart" width="620" height="314">
-    <h1>Data centres in orbit, <span class="flame-text">intelligence for a planet under fire</span></h1>
-    <p>ArchangX designs orbital data platforms that see wildfires from space, process the data where it is captured, and are proven in a digital twin before anything flies.</p>
-    <div class="pillars">
-      <a class="pillar" href="#wildfire"><img src="assets/emblem-96.png" alt=""><b>ML Wildfire Detection</b><span>Thermal anomaly scoring in orbit</span></a>
-      <a class="pillar" href="#stack"><img src="assets/emblem-96.png" alt=""><b>Data Centre Stack</b><span>From sensors to sovereign data</span></a>
-      <a class="pillar" href="#twin"><img src="assets/emblem-96.png" alt=""><b>Digital Twin</b><span>Orbit, power, thermal, compute</span></a>
-      <a class="pillar" href="#exhibitions"><img src="assets/emblem-96.png" alt=""><b>Exhibitions</b><span>Meet us and see the demos</span></a>
+<section class="block">
+  <div class="wrap">
+    <div class="head"><div class="num"><img src="assets/emblem-96.png" alt=""><span class="eyebrow">How it fits together</span></div>
+      <h2>One foundation, one mission on top</h2>
+      <p>The technology stack and the digital twin are built as a pair: the twin is a working model of the stack, so every design decision is tested before it reaches hardware. ML wildfire detection is the application that runs on both.</p></div>
+    <div class="fit" aria-label="How the work fits together">
+  <a class="top" href="wildfire.html"><b>ML Wildfire Detection</b><span>The application on top: detect, geolocate and alert</span></a>
+  <div class="arrow" aria-hidden="true">▲ runs on ▲</div>
+  <div class="pair">
+    <a class="base stackbox" href="technology-stack.html"><b>Technology Stack</b><span>The space data centre: compute, data and links</span></a>
+    <div class="link" aria-label="connected">⇄</div>
+    <a class="base twinbox" href="digital-twin.html"><b>Digital Twin</b><span>A live model of that stack, for testing every change</span></a>
+  </div>
+</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="head"><div class="num"><img src="assets/emblem-96.png" alt=""><span class="eyebrow">Explore</span></div><h2>What we do</h2></div>
+    <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <a class="card" href="wildfire.html"><h3>ML Wildfire Detection</h3><p>Physics-informed thermal anomaly scoring on board, turning imagery into geolocated fire events.</p><span class="more">Read more →</span></a>
+      <a class="card" href="technology-stack.html"><h3>Technology Stack</h3><p>A sovereignty-first space data centre: sensors, heterogeneous compute, orbital edge AI and the data platform.</p><span class="more">Read more →</span></a>
+      <a class="card" href="digital-twin.html"><h3>Digital Twin</h3><p>Coupled orbit, power, thermal, compute and network models of the stack, with faults and what-ifs.</p><span class="more">Read more →</span></a>
+      <a class="card" href="exhibitions.html"><h3>Exhibitions</h3><p>Live demos of detection, the stack and the twin. Meet the team.</p><span class="more">Read more →</span></a>
+      <a class="card" href="about.html"><h3>About Shahin Vakilinia</h3><p>The person behind the Space Data Center programme at ArchangX.</p><span class="more">Read more →</span></a>
+      <a class="card" href="contact.html"><h3>Contact us</h3><p>Partnerships, research collaboration, demos and press.</p><span class="more">Get in touch →</span></a>
     </div>
   </div>
+</section>
 
-  <section class="topic" id="wildfire">
-    <div class="wrap">
-      <div class="head">
-        <div class="num"><img src="assets/emblem-96.png" alt=""><span class="eyebrow">01 · What we do</span></div>
-        <h2>ML Wildfire Detection</h2>
-        <p>Autonomous wildfire detection that runs on board: a physics-informed hybrid model scores thermal anomalies where the imagery is captured, so a fire becomes a geolocated event instead of a raw download.</p>
-      </div>
-      <div class="flow" aria-label="Detection pipeline">
-        <span>Multi-modal Earth observation</span><i>→</i><span>Onboard thermal scoring</span><i>→</i>
-        <span>Geolocated fire events</span><i>→</i><span>Tasking and emergency logistics</span>
-      </div>
-      <div class="cards">
-        <div class="card"><h3>Physics-informed scoring</h3><p>Thermal physics and machine learning combined, so detections stay explainable and robust to clouds, sun glint and hot surfaces.</p></div>
-        <div class="card"><h3>Processing in orbit</h3><p>Anomalies are scored on board and in the orbital data centre, cutting the delay between first heat signature and alert.</p></div>
-        <div class="card"><h3>From pixel to response</h3><p>Each detection is a geolocated event that can retask satellites and feed emergency logistics in near real time.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="topic" id="stack">
-    <div class="wrap">
-      <div class="head">
-        <div class="num"><img src="assets/emblem-96.png" alt=""><span class="eyebrow">02 · What we do</span></div>
-        <h2>Technology Stack of Space Data Centres</h2>
-        <p>A sovereignty-first architecture for space-based intelligence: every layer from the sensor to the data owner is designed together.</p>
-      </div>
-      <div class="stack" aria-label="Technology stack, top to bottom">
-        <div class="layer l1"><b>Applications</b><span>Wildfire intelligence, tasking, emergency logistics</span></div>
-        <div class="layer l2"><b>Sovereign data platform</b><span>Data stays under its owner's jurisdiction, end to end</span></div>
-        <div class="layer l3"><b>Orbital edge processing</b><span>AI inference where the data is captured</span></div>
-        <div class="layer l4"><b>Heterogeneous compute</b><span>CPUs, accelerators and hybrid quantum-classical computing</span></div>
-        <div class="layer l5"><b>Sensors and links</b><span>Multi-modal Earth observation, inter-satellite and ground links</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="topic" id="twin">
-    <div class="wrap">
-      <div class="head">
-        <div class="num"><img src="assets/emblem-96.png" alt=""><span class="eyebrow">03 · What we do</span></div>
-        <h2>Digital Twin</h2>
-        <p>A coupled digital twin of the space data centre: change one subsystem and see the effect on all the others, long before hardware is qualified.</p>
-      </div>
-      <div class="models">
-        <div class="model"><b>Orbit</b><span>sunlight, eclipse, passes</span></div>
-        <div class="model"><b>Power</b><span>generation and storage</span></div>
-        <div class="model"><b>Thermal</b><span>radiators and heat load</span></div>
-        <div class="model"><b>Compute</b><span>workloads and nodes</span></div>
-        <div class="model"><b>Network</b><span>links and downlink</span></div>
-      </div>
-      <div class="cards">
-        <div class="card"><h3>Dispatch controllers</h3><p>Compare strategies for when and where workloads run across scenarios, before choosing one for flight.</p></div>
-        <div class="card"><h3>Fault detection and recovery</h3><p>Inject faults and watch the system detect, isolate and recover, with every event logged.</p></div>
-        <div class="card"><h3>What-if and resilience</h3><p>Space weather, debris, radiation and component loss turned into twin faults to measure their consequences.</p></div>
-        <div class="card"><h3>Telemetry sync</h3><p>The twin follows live telemetry, so the model and the real system can be compared continuously.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="topic night" id="exhibitions">
-    <div class="wrap">
-      <div class="head">
-        <div class="num"><img src="assets/emblem-96.png" alt=""><span class="eyebrow">04 · Last but not least</span></div>
-        <h2>Exhibitions</h2>
-        <p>See the work live: our demonstrations show wildfire detection, the data centre stack and the digital twin running side by side.</p>
-      </div>
-      <div class="cards">
-        <div class="card"><span class="tag">Demo</span><h3>Wildfire detection replay</h3><p>Thermal anomalies scored and geolocated on real scenes, from first signal to alert.</p></div>
-        <div class="card"><span class="tag">Demo</span><h3>Digital twin what-if</h3><p>Change a radiator, a link or a workload and watch the whole orbital data centre respond.</p></div>
-        <div class="card"><span class="tag">Upcoming</span><h3>Next exhibition</h3><p>Dates and venues are announced here. Get in touch to arrange a meeting or a private demo.</p></div>
-      </div>
-      <div class="cta">
-        <a class="btn" href="mailto:shahin.vakilinia@archangx.com?subject=ArchangX%20exhibition%20%2F%20demo">Book a demo</a>
-        <span>or write to <b>shahin.vakilinia@archangx.com</b></span>
-      </div>
-    </div>
-  </section>
+<section class="block night">
+  <div class="wrap two">
+    <div class="head"><span class="eyebrow">Work with us</span><h2>See it running</h2>
+      <p>Book a demonstration of wildfire detection, the data centre stack and the digital twin working together.</p></div>
+    <div style="align-self:center"><a class="btn" href="contact.html">Contact ArchangX</a></div>
+  </div>
+</section>
 </main>
-
-<footer>
+<footer class="site">
   <div class="wrap">
-    <img src="assets/logo-dark.png" alt="ArchangX" width="300" height="152">
-    <nav aria-label="Footer"><a href="#wildfire">Wildfire AI</a><a href="#stack">Data Centres</a><a href="#twin">Digital Twin</a><a href="#exhibitions">Exhibitions</a></nav>
-    <p style="margin-inline:auto">© <span id="year">2026</span> ArchangX. All rights reserved.</p>
+    <img src="assets/logo-dark.png" alt="ArchangX" width="280" height="142">
+    <nav aria-label="Footer"><a href="index.html">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="about.html">About Shahin</a><a href="contact.html">Contact</a></nav>
+    <p>© <span class="year">2026</span> ArchAngX Corp. · Space data centres, wildfire AI and digital twins.</p>
   </div>
 </footer>
-<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script>document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());</script>
 </body>
 </html>

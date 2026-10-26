@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Twin — ArchangX</title>
+<meta name="description" content="A coupled digital twin of the space data centre: orbit, power, thermal, compute and network models with dispatch controllers, fault detection and what-if analysis.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Digital Twin — ArchangX">
+<meta property="og:description" content="A coupled digital twin of the space data centre: orbit, power, thermal, compute and network models with dispatch controllers, fault detection and what-if analysis.">
+<meta property="og:image" content="https://www.archangx.com/assets/logo.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="ArchangX home"><img src="assets/emblem-96.png" alt="" width="64" height="25">ARCHANGX</a>
+    <nav class="main" aria-label="Pages"><a href="index.html">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html" aria-current="page">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="about.html">About Shahin</a><a href="contact.html">Contact</a></nav>
+  </div>
+</header>
+<main>
+<div class="wrap page-hero">
+  <div class="crumbs"><a href="index.html">Home</a> / Digital Twin</div>
+  <span class="eyebrow">Digital Twin</span>
+  <h1>Test the data centre <span class="flame-text">before it flies</span></h1>
+  <p>A coupled digital twin of the space data centre technology stack: change one subsystem and see its effect on all the others, long before hardware is qualified.</p>
+</div>
+<section class="block">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Coupled models</span><h2>Five models, one orbit-day</h2>
+      <p>Sunlight sets the power budget, power sets what compute can run, compute sets the heat to reject, and passes set when results can come down. The twin runs them together.</p></div>
+    <div class="models">
+      <div class="model"><b>Orbit</b><span>sunlight, eclipse, passes</span></div>
+      <div class="model"><b>Power</b><span>generation and storage</span></div>
+      <div class="model"><b>Thermal</b><span>radiators and heat load</span></div>
+      <div class="model"><b>Compute</b><span>workloads and nodes</span></div>
+      <div class="model"><b>Network</b><span>links and downlink</span></div>
+    </div>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap cards">
+    <div class="card"><h3>Dispatch controllers</h3><p>Compare strategies for when and where workloads run, across many scenarios, before choosing one for flight.</p></div>
+    <div class="card"><h3>Fault detection and recovery</h3><p>Inject faults and watch the system detect, isolate and recover, with every event logged.</p></div>
+    <div class="card"><h3>Risk and resilience</h3><p>Space weather, debris, radiation and charging become twin faults (radiation retries, link outages, degraded radiators, lost compute nodes) to measure consequences.</p></div>
+    <div class="card"><h3>Telemetry sync and what-if</h3><p>The twin follows telemetry and answers "what if" questions about the same system it mirrors.</p></div>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap two">
+    <div class="head"><span class="eyebrow">Connected to the stack and to wildfire detection</span><h2>Why the twin matters for fire</h2>
+      <p>Detection only helps if the data centre has the power, cooling and link time to run it at the moment a fire starts. The twin shows when it will, and what to change when it won't.</p></div>
+    <div class="cards" style="grid-template-columns:1fr">
+      <a class="card" href="technology-stack.html"><h3>The stack it models</h3><span class="more">Technology Stack →</span></a>
+      <a class="card" href="wildfire.html"><h3>The mission it protects</h3><span class="more">ML Wildfire Detection →</span></a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <img src="assets/logo-dark.png" alt="ArchangX" width="280" height="142">
+    <nav aria-label="Footer"><a href="index.html">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="about.html">About Shahin</a><a href="contact.html">Contact</a></nav>
+    <p>© <span class="year">2026</span> ArchAngX Corp. · Space data centres, wildfire AI and digital twins.</p>
+  </div>
+</footer>
+<script>document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());</script>
+</body>
+</html>

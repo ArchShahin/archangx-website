@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — ArchangX</title>
+<meta name="description" content="Contact ArchangX about partnerships, research collaboration, demonstrations and exhibitions.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Contact — ArchangX">
+<meta property="og:description" content="Contact ArchangX about partnerships, research collaboration, demonstrations and exhibitions.">
+<meta property="og:image" content="https://www.archangx.com/assets/logo.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="ArchangX home"><img src="assets/emblem-96.png" alt="" width="64" height="25">ARCHANGX</a>
+    <nav class="main" aria-label="Pages"><a href="index.html">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="about.html">About Shahin</a><a href="contact.html" aria-current="page">Contact</a></nav>
+  </div>
+</header>
+<main>
+<div class="wrap page-hero">
+  <div class="crumbs"><a href="index.html">Home</a> / Contact</div>
+  <span class="eyebrow">Contact</span>
+  <h1>Contact <span class="flame-text">ArchangX</span></h1>
+  <p>Partnerships, research collaboration, demonstrations, exhibitions and press: write to us and we will reply.</p>
+</div>
+<section class="block">
+  <div class="wrap two">
+    <div class="head">
+      <span class="eyebrow">Write to us</span><h2>Email</h2>
+      <p><a href="mailto:shahin.vakilinia@archangx.com"><b>shahin.vakilinia@archangx.com</b></a></p>
+      <p class="muted">ArchAngX Corp. · Canada</p>
+      <ul class="ticks" style="margin-top:12px">
+        <li>Research collaboration</li><li>Partnerships and pilots</li><li>Demonstrations and exhibitions</li><li>Press</li>
+      </ul>
+    </div>
+    <form class="contact" id="contact-form">
+      <label for="cf-name">Your name<input id="cf-name" name="name" required autocomplete="name"></label>
+      <label for="cf-org">Organisation<input id="cf-org" name="org" autocomplete="organization"></label>
+      <label for="cf-topic">Topic
+        <select id="cf-topic" name="topic">
+          <option>Research collaboration</option><option>Partnership or pilot</option>
+          <option>Demonstration or exhibition</option><option>Press</option><option>Other</option>
+        </select></label>
+      <label for="cf-msg">Message<textarea id="cf-msg" name="message" required></textarea></label>
+      <button class="btn" type="submit">Open in my email app</button>
+      <p class="muted" style="font-size:14px">This form opens a pre-filled email in your own email app; nothing is sent or stored by this website.</p>
+    </form>
+  </div>
+</section>
+<script>
+document.getElementById("contact-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target, v = n => f.elements[n].value.trim();
+  const subject = `[${v("topic")}] ${v("name")}${v("org") ? " (" + v("org") + ")" : ""}`;
+  location.href = "mailto:shahin.vakilinia@archangx.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(v("message"));
+});
+</script>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <img src="assets/logo-dark.png" alt="ArchangX" width="280" height="142">
+    <nav aria-label="Footer"><a href="index.html">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="about.html">About Shahin</a><a href="contact.html">Contact</a></nav>
+    <p>© <span class="year">2026</span> ArchAngX Corp. · Space data centres, wildfire AI and digital twins.</p>
+  </div>
+</footer>
+<script>document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());</script>
+</body>
+</html>
