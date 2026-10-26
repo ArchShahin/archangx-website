@@ -38,18 +38,24 @@ docker compose up --build                                                   # fu
 Without Docker: start `uvicorn services.gateway.main:app` and `python -m services.<stage>.main` for each stage;
 they share `./pipeline.db` (SQLite).
 
-## Deploy to GCP (GKE Autopilot)
-Needs the Google Cloud CLI (`gcloud auth login`), `kubectl`, and billing on the project.
-```bash
-PROJECT=agile-airship-512819-u5 HOST=pipeline.archangx.com ./deploy/gcp.sh
-```
-The script enables the APIs, creates an Artifact Registry repo and an Autopilot cluster in `northamerica-northeast1`
-(Montreal), builds the six images with Cloud Build, creates a random database password as a Kubernetes Secret,
-reserves a global static IP and applies `k8s/`. It is safe to re-run; each run deploys a new image tag.
+## Deploy to GCP (GKE Autopilot), automatically from GitHub
+Every push to `main` runs `.github/workflows/deploy.yml`: tests, then the six images are built and pushed to
+Artifact Registry (tag = commit SHA) and the manifests are applied to the cluster. GitHub signs in to GCP with
+**Workload Identity Federation**: no key is stored anywhere, and only this repository may use the deploy-only
+service account (Artifact Registry writer + GKE developer, nothing else).
 
-**DNS (once):** at the DNS provider for `archangx.com`, add an `A` record `pipeline.archangx.com → <IP the script prints>`.
-The Google-managed certificate turns Active 15-60 min after the name resolves; then https://pipeline.archangx.com serves the app.
-A subdomain keeps the main archangx.com website untouched.
+**One-time setup** (project owner, in Cloud Shell):
+```bash
+git clone https://github.com/<owner>/<repo>.git && cd <repo>
+GITHUB_REPO=<owner>/<repo> HOST=www.archangx.com bash deploy/bootstrap.sh
+```
+It creates the APIs, registry, Autopilot cluster (`northamerica-northeast1`, Montreal), static IP, database password
+(Kubernetes Secret) and the GitHub trust, then prints four repository variables to set in GitHub
+(Settings → Secrets and variables → Actions → Variables): `GCP_PROJECT`, `GCP_WIF_PROVIDER`, `GCP_SA_EMAIL`, `HOST`.
+After that, `git push` is the whole deploy. `deploy/gcp.sh` remains for a manual deploy from Cloud Shell.
+
+**DNS (once):** at the DNS provider for `archangx.com`, point the host at the IP the bootstrap prints (`www` → `A` record; replace the existing `www` CNAME to Squarespace).
+The Google-managed certificate turns Active 15-60 min after the name resolves; then https://www.archangx.com serves the app.
 
 **Costs (estimate, check the GCP pricing calculator):** about 2.5 vCPU and 4 GiB requested at rest
 (gateway ×2, five workers, PostgreSQL) on Autopilot, plus one HTTPS load balancer: roughly US$110-150/month while

@@ -1,0 +1,84 @@
+# Every push to main: test, build the six images, deploy to GKE Autopilot.
+# Authentication is keyless (Workload Identity Federation): no GCP key is stored in GitHub.
+# One-time setup: run deploy/bootstrap.sh in Cloud Shell, then set the four repository
+# variables it prints (Settings -> Secrets and variables -> Actions -> Variables).
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  id-token: write   # lets the job request a GitHub OIDC token for GCP
+
+env:
+  PROJECT: ${{ vars.GCP_PROJECT }}
+  HOST: ${{ vars.HOST }}
+  REGION: northamerica-northeast1
+  CLUSTER: pipeline
+  SERVICES: gateway profiler collector extractor insights reporter
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest -q tests
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    concurrency: { group: deploy-production, cancel-in-progress: false }   # one deploy at a time
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the repository variables are set
+        run: |
+          for v in GCP_PROJECT GCP_WIF_PROVIDER GCP_SA_EMAIL HOST; do
+            [ -n "$(eval echo \${$v:-})" ] || { echo "::error::Repository variable $v is missing (see deploy/bootstrap.sh)"; exit 1; }
+          done
+        env:
+          GCP_PROJECT: ${{ vars.GCP_PROJECT }}
+          GCP_WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+          GCP_SA_EMAIL: ${{ vars.GCP_SA_EMAIL }}
+          HOST: ${{ vars.HOST }}
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SA_EMAIL }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: ${{ env.CLUSTER }}
+          location: ${{ env.REGION }}
+
+      - name: Build and push the six images (tag = commit SHA)
+        run: |
+          PREFIX="$REGION-docker.pkg.dev/$PROJECT/pipeline"
+          gcloud auth configure-docker "$REGION-docker.pkg.dev" --quiet
+          for s in $SERVICES; do
+            docker build --build-arg SERVICE="$s" -t "$PREFIX/$s:$GITHUB_SHA" .
+            docker push "$PREFIX/$s:$GITHUB_SHA"
+          done
+
+      - name: Apply the manifests
+        run: |
+          PREFIX="$REGION-docker.pkg.dev/$PROJECT/pipeline"
+          for f in k8s/10-postgres.yaml k8s/20-services.yaml k8s/30-autoscaling.yaml k8s/40-ingress.yaml; do
+            sed -e "s#__IMAGE_PREFIX__#$PREFIX#g" -e "s#__TAG__#$GITHUB_SHA#g" -e "s#__HOST__#$HOST#g" "$f" \
+              | kubectl apply -f -
+          done
+
+      - name: Wait for the rollout
+        run: |
+          for s in $SERVICES; do kubectl -n pipeline rollout status "deploy/$s" --timeout=10m; done
+          echo "Deployed $GITHUB_SHA to https://$HOST"
