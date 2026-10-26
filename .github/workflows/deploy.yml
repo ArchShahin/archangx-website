@@ -1,7 +1,6 @@
-# Every push to main: test, build the six images, deploy to GKE Autopilot.
-# Authentication is keyless (Workload Identity Federation): no GCP key is stored in GitHub.
-# One-time setup: run deploy/bootstrap.sh in Cloud Shell, then set the four repository
-# variables it prints (Settings -> Secrets and variables -> Actions -> Variables).
+# Every push to main: check the page, build the container, deploy it to Cloud Run.
+# Keyless: GitHub signs in to GCP with Workload Identity Federation (no key stored anywhere).
+# One-time setup: deploy/bootstrap.sh, which also sets the repository variables used below.
 name: deploy
 
 on:
@@ -11,43 +10,23 @@ on:
 
 permissions:
   contents: read
-  id-token: write   # lets the job request a GitHub OIDC token for GCP
+  id-token: write
 
 env:
   PROJECT: ${{ vars.GCP_PROJECT }}
-  HOST: ${{ vars.HOST }}
-  REGION: northamerica-northeast1
-  CLUSTER: pipeline
-  SERVICES: gateway profiler collector extractor insights reporter
+  REGION: us-east1            # Cloud Run custom-domain mapping is free here (no load balancer)
+  SERVICE: archangx-site
+  IMAGE: us-east1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/site/archangx-site:${{ github.sha }}
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: pip install -r requirements-dev.txt
-      - run: python -m pytest -q tests
-
   deploy:
-    needs: test
     runs-on: ubuntu-latest
-    concurrency: { group: deploy-production, cancel-in-progress: false }   # one deploy at a time
-    environment: production
+    concurrency: { group: deploy-site, cancel-in-progress: true }
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check the repository variables are set
-        run: |
-          for v in GCP_PROJECT GCP_WIF_PROVIDER GCP_SA_EMAIL HOST; do
-            [ -n "$(eval echo \${$v:-})" ] || { echo "::error::Repository variable $v is missing (see deploy/bootstrap.sh)"; exit 1; }
-          done
-        env:
-          GCP_PROJECT: ${{ vars.GCP_PROJECT }}
-          GCP_WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
-          GCP_SA_EMAIL: ${{ vars.GCP_SA_EMAIL }}
-          HOST: ${{ vars.HOST }}
+      - name: Check every linked file exists
+        run: python3 tools/check_site.py
 
       - uses: google-github-actions/auth@v2
         with:
@@ -56,29 +35,16 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v2
 
-      - uses: google-github-actions/get-gke-credentials@v2
-        with:
-          cluster_name: ${{ env.CLUSTER }}
-          location: ${{ env.REGION }}
-
-      - name: Build and push the six images (tag = commit SHA)
+      - name: Build and push the image
         run: |
-          PREFIX="$REGION-docker.pkg.dev/$PROJECT/pipeline"
-          gcloud auth configure-docker "$REGION-docker.pkg.dev" --quiet
-          for s in $SERVICES; do
-            docker build --build-arg SERVICE="$s" -t "$PREFIX/$s:$GITHUB_SHA" .
-            docker push "$PREFIX/$s:$GITHUB_SHA"
-          done
+          gcloud auth configure-docker us-east1-docker.pkg.dev --quiet
+          docker build -t "$IMAGE" .
+          docker push "$IMAGE"
 
-      - name: Apply the manifests
+      - name: Deploy to Cloud Run (scales to zero; costs only while serving)
         run: |
-          PREFIX="$REGION-docker.pkg.dev/$PROJECT/pipeline"
-          for f in k8s/10-postgres.yaml k8s/20-services.yaml k8s/30-autoscaling.yaml k8s/40-ingress.yaml; do
-            sed -e "s#__IMAGE_PREFIX__#$PREFIX#g" -e "s#__TAG__#$GITHUB_SHA#g" -e "s#__HOST__#$HOST#g" "$f" \
-              | kubectl apply -f -
-          done
-
-      - name: Wait for the rollout
-        run: |
-          for s in $SERVICES; do kubectl -n pipeline rollout status "deploy/$s" --timeout=10m; done
-          echo "Deployed $GITHUB_SHA to https://$HOST"
+          gcloud run deploy "$SERVICE" --image "$IMAGE" --region "$REGION" --project "$PROJECT" \
+            --service-account "site-runtime@$PROJECT.iam.gserviceaccount.com" \
+            --allow-unauthenticated --port 8080 \
+            --min-instances 0 --max-instances 2 --memory 128Mi --cpu 1 --concurrency 80 --quiet
+          echo "Live: $(gcloud run services describe "$SERVICE" --region "$REGION" --format 'value(status.url)')"

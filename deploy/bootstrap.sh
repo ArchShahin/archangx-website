@@ -1,81 +1,65 @@
 #!/usr/bin/env bash
-# ONE-TIME setup for automatic deploys from GitHub Actions. Run it in Cloud Shell as the project owner:
+# ONE-TIME setup so every push to GitHub deploys the website to Cloud Run.
 #
-#   git clone https://github.com/<owner>/<repo>.git && cd <repo>
-#   GITHUB_REPO=<owner>/<repo> HOST=www.archangx.com bash deploy/bootstrap.sh
+#   PROJECT=<gcp-project-id> GITHUB_REPO=<owner>/<repo> bash deploy/bootstrap.sh
 #
-# It creates what every deploy reuses (APIs, image registry, Autopilot cluster, static IP, database
-# password) and lets ONLY that GitHub repository deploy, without any stored key: GitHub's short-lived
-# OIDC token is exchanged for a deploy-only service account (Workload Identity Federation).
-# Safe to re-run: each step skips what already exists.
+# Creates: the APIs, an image registry (keeps only the 5 newest images), a runtime account with no
+# permissions, and a deploy-only account that ONLY the given GitHub repository can use, through
+# Workload Identity Federation (no key file anywhere). Safe to re-run.
 set -euo pipefail
-PROJECT="${PROJECT:-$(gcloud config get-value project 2>/dev/null)}"
+PROJECT="${PROJECT:?set PROJECT}"
 GITHUB_REPO="${GITHUB_REPO:?set GITHUB_REPO=owner/repo}"
-HOST="${HOST:?set HOST, e.g. www.archangx.com}"
-REGION="${REGION:-northamerica-northeast1}"
-CLUSTER="${CLUSTER:-pipeline}"
-SA_NAME=github-deployer
-SA="$SA_NAME@$PROJECT.iam.gserviceaccount.com"
+REGION=us-east1
+DEPLOYER="github-deployer@$PROJECT.iam.gserviceaccount.com"
+RUNTIME="site-runtime@$PROJECT.iam.gserviceaccount.com"
 POOL=github
-NUMBER=$(gcloud projects describe "$PROJECT" --format 'value(projectNumber)')
 gcloud config set project "$PROJECT" >/dev/null
-cd "$(dirname "$0")/.."
+NUMBER=$(gcloud projects describe "$PROJECT" --format 'value(projectNumber)')
 
-echo "== 1/7 enable APIs (project $PROJECT)"
-gcloud services enable container.googleapis.com artifactregistry.googleapis.com compute.googleapis.com \
-  iam.googleapis.com iamcredentials.googleapis.com sts.googleapis.com
+echo "== 1/5 APIs"
+gcloud services enable run.googleapis.com artifactregistry.googleapis.com iam.googleapis.com \
+  iamcredentials.googleapis.com sts.googleapis.com
 
-echo "== 2/7 image registry"
-gcloud artifacts repositories describe pipeline --location "$REGION" >/dev/null 2>&1 || \
-  gcloud artifacts repositories create pipeline --repository-format docker --location "$REGION"
+echo "== 2/5 image registry (cleanup: keep the 5 newest images)"
+gcloud artifacts repositories describe site --location "$REGION" >/dev/null 2>&1 || \
+  gcloud artifacts repositories create site --repository-format docker --location "$REGION"
+cat > /tmp/cleanup.json <<'JSON'
+[{"name": "keep-5-newest", "action": {"type": "Keep"}, "mostRecentVersions": {"keepCount": 5}},
+ {"name": "delete-older", "action": {"type": "Delete"}, "condition": {"tagState": "any", "olderThan": "1d"}}]
+JSON
+gcloud artifacts repositories set-cleanup-policies site --location "$REGION" --policy /tmp/cleanup.json --no-dry-run --quiet >/dev/null
 
-echo "== 3/7 GKE Autopilot cluster (first time: about 10 min)"
-gcloud container clusters describe "$CLUSTER" --region "$REGION" >/dev/null 2>&1 || \
-  gcloud container clusters create-auto "$CLUSTER" --region "$REGION"
-gcloud container clusters get-credentials "$CLUSTER" --region "$REGION"
+echo "== 3/5 service accounts"
+gcloud iam service-accounts describe "$RUNTIME" >/dev/null 2>&1 || \
+  gcloud iam service-accounts create site-runtime --display-name "Website runtime (no permissions)"
+gcloud iam service-accounts describe "$DEPLOYER" >/dev/null 2>&1 || \
+  gcloud iam service-accounts create github-deployer --display-name "GitHub Actions deployer"
 
-echo "== 4/7 namespace and database password (random, created once, stored only in the cluster)"
-kubectl apply -f k8s/00-namespace.yaml
-kubectl -n pipeline get secret pipeline-db >/dev/null 2>&1 || \
-  kubectl -n pipeline create secret generic pipeline-db --from-literal=password="$(openssl rand -hex 24)"
+echo "== 4/5 deployer may: push images, deploy the Cloud Run service, run it as the runtime account"
+gcloud artifacts repositories add-iam-policy-binding site --location "$REGION" \
+  --member "serviceAccount:$DEPLOYER" --role roles/artifactregistry.writer --quiet >/dev/null
+gcloud projects add-iam-policy-binding "$PROJECT" --member "serviceAccount:$DEPLOYER" \
+  --role roles/run.admin --condition None --quiet >/dev/null
+gcloud iam service-accounts add-iam-policy-binding "$RUNTIME" --member "serviceAccount:$DEPLOYER" \
+  --role roles/iam.serviceAccountUser --quiet >/dev/null
 
-echo "== 5/7 static IP for $HOST"
-gcloud compute addresses describe pipeline-ip --global >/dev/null 2>&1 || \
-  gcloud compute addresses create pipeline-ip --global
-IP=$(gcloud compute addresses describe pipeline-ip --global --format 'value(address)')
-DNS_HOST=$([ "$(echo "$HOST" | tr -cd . | wc -c)" -le 1 ] && echo "@" || echo "${HOST%%.*}")  # @ = the bare domain
-
-echo "== 6/7 deploy-only service account: push images, update the cluster, nothing else"
-gcloud iam service-accounts describe "$SA" >/dev/null 2>&1 || \
-  gcloud iam service-accounts create "$SA_NAME" --display-name "GitHub Actions deployer"
-for role in roles/artifactregistry.writer roles/container.developer; do
-  gcloud projects add-iam-policy-binding "$PROJECT" --member "serviceAccount:$SA" --role "$role" \
-    --condition None --quiet >/dev/null
-done
-
-echo "== 7/7 trust GitHub, but only the repository $GITHUB_REPO"
+echo "== 5/5 trust GitHub, only for $GITHUB_REPO"
 gcloud iam workload-identity-pools describe "$POOL" --location global >/dev/null 2>&1 || \
   gcloud iam workload-identity-pools create "$POOL" --location global --display-name "GitHub Actions"
 gcloud iam workload-identity-pools providers describe github --location global --workload-identity-pool "$POOL" \
   >/dev/null 2>&1 || \
   gcloud iam workload-identity-pools providers create-oidc github --location global --workload-identity-pool "$POOL" \
     --issuer-uri https://token.actions.githubusercontent.com \
-    --attribute-mapping "google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.ref=assertion.ref" \
+    --attribute-mapping "google.subject=assertion.sub,attribute.repository=assertion.repository" \
     --attribute-condition "assertion.repository == '$GITHUB_REPO'"
-gcloud iam service-accounts add-iam-policy-binding "$SA" --role roles/iam.workloadIdentityUser --quiet \
+gcloud iam service-accounts add-iam-policy-binding "$DEPLOYER" --role roles/iam.workloadIdentityUser --quiet \
   --member "principalSet://iam.googleapis.com/projects/$NUMBER/locations/global/workloadIdentityPools/$POOL/attribute.repository/$GITHUB_REPO" \
   >/dev/null
 
 cat <<MSG
 
-Done. In GitHub: $GITHUB_REPO -> Settings -> Secrets and variables -> Actions -> Variables tab -> New repository variable:
+Done. GitHub repository variables (identifiers, not secrets):
   GCP_PROJECT       $PROJECT
   GCP_WIF_PROVIDER  projects/$NUMBER/locations/global/workloadIdentityPools/$POOL/providers/github
-  GCP_SA_EMAIL      $SA
-  HOST              $HOST
-(They are identifiers, not secrets.) Then every push to main deploys; or run it now from the Actions tab.
-
-DNS (once), at Squarespace -> Domains -> archangx.com -> DNS settings:
-  host $DNS_HOST : type A -> $IP     (replace any existing CNAME/A for that host)
-HTTPS turns on 15-60 min after the name resolves:  kubectl -n pipeline describe managedcertificate pipeline-cert
+  GCP_SA_EMAIL      $DEPLOYER
 MSG
