@@ -1,6 +1,4 @@
-# Every push to main: check the page, build the container, deploy it to Cloud Run.
-# Keyless: GitHub signs in to GCP with Workload Identity Federation (no key stored anywhere).
-# One-time setup: deploy/bootstrap.sh, which also sets the repository variables used below.
+# Every push to main publishes site/ to GitHub Pages (www.archangx.com). Free, no servers.
 name: deploy
 
 on:
@@ -10,41 +8,26 @@ on:
 
 permissions:
   contents: read
+  pages: write
   id-token: write
 
-env:
-  PROJECT: ${{ vars.GCP_PROJECT }}
-  REGION: us-east1            # Cloud Run custom-domain mapping is free here (no load balancer)
-  SERVICE: archangx-site
-  IMAGE: us-east1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/site/archangx-site:${{ github.sha }}
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    concurrency: { group: deploy-site, cancel-in-progress: true }
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-
       - name: Check every linked file exists
         run: python3 tools/check_site.py
-
-      - uses: google-github-actions/auth@v2
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
-          service_account: ${{ vars.GCP_SA_EMAIL }}
-
-      - uses: google-github-actions/setup-gcloud@v2
-
-      - name: Build and push the image
-        run: |
-          gcloud auth configure-docker us-east1-docker.pkg.dev --quiet
-          docker build -t "$IMAGE" .
-          docker push "$IMAGE"
-
-      - name: Deploy to Cloud Run (scales to zero; costs only while serving)
-        run: |
-          gcloud run deploy "$SERVICE" --image "$IMAGE" --region "$REGION" --project "$PROJECT" \
-            --service-account "site-runtime@$PROJECT.iam.gserviceaccount.com" \
-            --allow-unauthenticated --port 8080 \
-            --min-instances 0 --max-instances 2 --memory 128Mi --cpu 1 --concurrency 80 --quiet
-          echo "Live: $(gcloud run services describe "$SERVICE" --region "$REGION" --format 'value(status.url)')"
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
