@@ -1,0 +1,54 @@
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: gateway, namespace: pipeline }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: gateway }
+  minReplicas: 2
+  maxReplicas: 5
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } } }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: profiler, namespace: pipeline }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: profiler }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } } }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: collector, namespace: pipeline }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: collector }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } } }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: extractor, namespace: pipeline }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: extractor }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } } }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: insights, namespace: pipeline }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: insights }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } } }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: reporter, namespace: pipeline }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: reporter }
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: [{ type: Resource, resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } } }]
