@@ -14,7 +14,7 @@ Commit and push to `main`. GitHub Actions (`.github/workflows/deploy.yml`) check
 to GitHub Pages; the change is live on https://www.archangx.com in 1-2 minutes.
 
 ## Domain
-`site/CNAME` holds `www.archangx.com`. DNS stays at Squarespace: `www` is a CNAME to `archshahiin.github.io`,
+`site/CNAME` holds `www.archangx.com`. DNS stays at Squarespace: `www` is a CNAME to `archshahin.github.io`,
 and the bare `archangx.com` forwards to `https://www.archangx.com`. HTTPS is issued by GitHub automatically.
 
 ## Cost
