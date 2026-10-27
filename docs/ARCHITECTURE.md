@@ -91,8 +91,9 @@ docs/                      this documentation
 - No server-side code, database or user accounts: nothing to breach or patch on our side.
 - No cookies, analytics, trackers, external fonts or scripts: no third party sees the visitors.
 - The contact form never transmits data; it opens the visitor's own email app with a pre-filled message.
-- HTTPS everywhere once the certificate is issued ("Enforce HTTPS" on); the old site's HSTS policy keeps
-  browsers on HTTPS.
+- HTTPS everywhere: Let's Encrypt certificate for `www.archangx.com` and `archangx.com`, renewed by GitHub;
+  "Enforce HTTPS" is on, so `http://` redirects to `https://`.
+- The domain is verified on the ArchShahin account, so no other GitHub account can publish under it.
 - Publishing requires push access to `ArchShahin/archangx-website`; the workflow has only the `pages: write`
   and `id-token: write` permissions it needs.
 

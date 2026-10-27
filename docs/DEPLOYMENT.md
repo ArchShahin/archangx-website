@@ -9,7 +9,7 @@ Everything below has been done once; this page records it so it can be checked o
 | Repository | https://github.com/ArchShahin/archangx-website (public; Pages is free for public repos) |
 | Pages source | **GitHub Actions** (Settings → Pages → Build and deployment) |
 | Custom domain | `www.archangx.com` (also in `site/CNAME`) |
-| Enforce HTTPS | on, once the certificate is issued |
+| Enforce HTTPS | on (certificate issued 2026-10-27) |
 | Workflow | `.github/workflows/deploy.yml`, runs on every push to `main` and on demand (Actions → deploy → Run workflow) |
 
 ## 2. DNS at Squarespace
@@ -30,6 +30,7 @@ Squarespace → Domains → archangx.com → DNS → DNS Settings.
 | MX | `@` | `smtp.google.com` (priority 1) | Google Workspace email, **do not remove** |
 | TXT | `@` | `v=spf1 include:_spf.google.com ~all` | email sender policy, **do not remove** |
 | TXT | `google._domainkey` | `v=DKIM1; ...` | email signing, **do not remove** |
+| TXT | `_github-pages-challenge-ArchShahin` | verification code from GitHub | proves the domain is ours on GitHub, **do not remove** |
 
 The **Squarespace Domain Connect** preset (`_domainconnect`) can stay; it does not affect the site.
 
@@ -38,11 +39,15 @@ The **Squarespace Domain Connect** preset (`_domainconnect`) can stay; it does n
 GitHub Pages requests a Let's Encrypt certificate for `www.archangx.com` and `archangx.com` after DNS points to
 GitHub. Usually 15-60 minutes.
 
-**What happened on first setup (2026-10-26).** The certificate stayed at "authorization created" for over an hour,
-twice. Cause: the old Squarespace A records had a 4-hour TTL, so some resolvers (Let's Encrypt's included) still
-sent `archangx.com` to Squarespace and the validation could not complete. Fix: wait until the old TTL has
-expired everywhere (4 hours after the DNS change), then remove and re-add the custom domain to start a fresh
-request. Lesson for any future DNS move: lower the TTL a few hours before changing records.
+**What happened on first setup (2026-10-26/27).** The certificate stayed at "authorization created" for about
+18 hours. First the old Squarespace A records (4-hour TTL) were still cached; after they expired, the request
+stayed stuck even though the Pages health check showed both domains valid and `is_https_eligible: true`.
+What got it issued: verify the domain at **account** level (github.com/settings/pages → Add a domain → TXT
+record `_github-pages-challenge-ArchShahin` in Squarespace → Verify), then remove and re-add the custom domain
+once. The certificate was approved within a few hours of that re-add (issued 2026-10-27, expires 2027-01-25;
+GitHub renews it automatically). Keep the verification TXT record: it also stops anyone else claiming the domain.
+Lessons: verify the domain before pointing DNS at GitHub, and lower the TTL a few hours before changing records.
+Don't remove and re-add repeatedly; each reset restarts the wait and can hit Let's Encrypt rate limits.
 
 Check the state:
 ```bash
