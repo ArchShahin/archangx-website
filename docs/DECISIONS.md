@@ -44,3 +44,14 @@ depends on both.
 **Decision.** The About page states only what Shahin's own documents show (role, programme, areas of work).
 **Why.** A public biography must be accurate. Degrees, prior roles, a photo or a LinkedIn link are added when
 Shahin provides them.
+
+## D7. Seraphim launch event lives on this site as one static page (2026-11-03)
+
+**Context.** ArchangX is launching Seraphim with a one-day Space Data Centres summit with panels (Jira epic SCRUM-1311).
+**Decision.** The event site is `site/seraphim.html`, served at https://www.archangx.com/seraphim, in the same repo and
+deploy pipeline. It follows D1 and D4: system fonts, no external scripts, analytics, cookies or embeds. It uses a dark
+"night" variant of the ArchangX palette.
+**Consequences.** Registration in v1 links to a Google Form in the ArchangX Workspace (no backend, no cost). The
+livestream is a link to the stream rather than an embedded player. Analytics are not added.
+**Revisit when.** Registrations must be stored and confirmed by our own system, or event-day analytics are required.
+Cloud Run (D2) is then the next step, and any paid service needs Shahin's approval.

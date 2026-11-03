@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seraphim Launch — Space Data Centres Summit | ArchangX</title>
+<!--
+  ArchangX · Seraphim Launch event website — STARTER TEMPLATE v0.1
+  Target URL: https://www.archangx.com/seraphim  (file: site/seraphim.html, GitHub Pages)   (Jira epic SCRUM-1311, build story SCRUM-1318)
+  Follows docs/DECISIONS.md: static, no third-party fonts/scripts/analytics/embeds (D1, D4).
+  Everything marked [TBD] is a placeholder to be confirmed in SCRUM-1313 (event details).
+  Design tokens live in :root — hand-off for SCRUM-1315 (brand) / SCRUM-1318 (frontend).
+-->
+<meta name="description" content="Seraphim by ArchangX: a one-day summit introducing space data centres — orbital compute, storage and sovereign data. Keynote, four expert panels, live demo. Toronto + livestream.">
+<link rel="canonical" href="https://www.archangx.com/seraphim">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Seraphim Launch — Space Data Centres Summit">
+<meta property="og:description" content="One day. Four panels. The data centre above the clouds. Toronto + livestream.">
+<meta property="og:url" content="https://www.archangx.com/seraphim">
+<meta property="og:image" content="https://www.archangx.com/assets/logo-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Seraphim Launch — Space Data Centres Summit",
+  "description": "A one-day summit introducing Seraphim, ArchangX's space data centre platform, with keynote, expert panels and a live demo.",
+  "startDate": "[TBD]T09:00:00-05:00",
+  "endDate": "[TBD]T19:30:00-05:00",
+  "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": [
+    {"@type": "Place", "name": "[TBD venue]", "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"}},
+    {"@type": "VirtualLocation", "url": "https://www.archangx.com/seraphim#watch"}
+  ],
+  "organizer": {"@type": "Organization", "name": "ArchangX", "url": "https://www.archangx.com"}
+}
+</script>
+<style>
+:root{
+  /* ---- Design tokens (starter — refine in SCRUM-1315) ---- */
+  --c-void:#0a0f0c;        /* page background: deep space */
+  --c-night:#0d1310;       /* raised surface */
+  --c-panel:#121a16;       /* cards */
+  --c-line:#24302a;        /* hairlines */
+  --c-text:#eef1ec;        /* body text */
+  --c-muted:#a3ada6;       /* secondary text (AA on --c-void) */
+  --c-halo:#f8a83a;        /* ArchangX flame orange — accent / CTA */
+  --c-halo-ink:#1a1006;    /* text on gold */
+  --c-ion:#2fbf71;         /* ArchangX wing green — links, data */
+  --c-plasma:#e8197b;      /* ArchangX flame magenta */
+  --flame:linear-gradient(90deg,#f8a83a,#f0634f 55%,#e8197b);
+  --f-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --f-body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --r-sm:6px; --r-md:12px; --r-lg:20px;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:72px; --s-9:112px;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--c-void);color:var(--c-text);font:16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--c-ion)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--c-halo);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;letter-spacing:.005em;margin:0;text-wrap:balance}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--s-5)}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--c-halo)}
+.tbd{font:500 11px var(--f-mono);color:var(--c-halo-ink);background:var(--c-halo);padding:1px 6px;border-radius:4px;vertical-align:middle}
+.skip{position:absolute;left:-999px;top:8px;background:var(--c-halo);color:var(--c-halo-ink);padding:8px 12px;border-radius:6px;z-index:100}
+.skip:focus{left:8px}
+
+/* ---- Header / nav ---- */
+header.site{position:sticky;top:0;z-index:50;background:rgba(5,7,15,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--c-line)}
+header.site .wrap{display:flex;align-items:center;gap:var(--s-5);height:68px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--c-text);text-decoration:none;font:600 15px var(--f-display);letter-spacing:.04em}
+.brand small{color:var(--c-muted);font-weight:400}
+.brand img{width:48px;height:auto}
+nav.primary{margin-left:auto}
+nav.primary ul{display:flex;gap:var(--s-5);list-style:none;margin:0;padding:0}
+nav.primary a{color:var(--c-muted);text-decoration:none;font-size:14px}
+nav.primary a:hover{color:var(--c-text)}
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--c-line);color:var(--c-text);border-radius:var(--r-sm);padding:8px 12px;font:inherit}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;font:600 15px var(--f-body);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--c-halo);color:var(--c-halo-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{border-color:var(--c-line);color:var(--c-text);background:transparent}
+.btn-ghost:hover{border-color:var(--c-muted)}
+.btn-sm{padding:8px 16px;font-size:14px}
+@media (max-width:900px){
+  nav.primary{display:none;position:absolute;top:68px;left:0;right:0;background:var(--c-night);border-bottom:1px solid var(--c-line)}
+  nav.primary.open{display:block}
+  nav.primary ul{flex-direction:column;padding:var(--s-4) var(--s-5);gap:var(--s-3)}
+  .menu-btn{display:block}
+  header.site .btn-sm{display:none}
+}
+
+/* ---- Hero ---- */
+.hero{position:relative;overflow:hidden;padding:var(--s-9) 0 var(--s-8)}
+.hero svg.orbit{position:absolute;right:-180px;top:-80px;width:820px;max-width:none;opacity:.9;pointer-events:none;z-index:0}
+.hero .wrap{position:relative;z-index:1}
+@media (max-width:760px){.hero svg.orbit{right:-460px;top:-160px;opacity:.45}}
+.hero h1{font-size:clamp(44px,7.5vw,92px);font-weight:700;max-width:12ch;margin:var(--s-4) 0 var(--s-5)}
+.hero h1 em{font-style:normal;background:var(--flame);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lede{font-size:clamp(17px,2vw,20px);color:var(--c-muted);max-width:46ch;margin:0 0 var(--s-6)}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s-5);font:500 14px var(--f-mono);color:var(--c-text);margin-bottom:var(--s-6)}
+.meta span{display:flex;align-items:center;gap:8px}
+.meta i{width:6px;height:6px;border-radius:50%;background:var(--c-ion);display:inline-block}
+.cta-row{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.countdown{display:flex;gap:var(--s-4);margin-top:var(--s-7)}
+.countdown div{background:var(--c-night);border:1px solid var(--c-line);border-radius:var(--r-md);padding:var(--s-3) var(--s-4);min-width:84px;text-align:center}
+.countdown b{display:block;font:600 30px var(--f-display)}
+.countdown small{font:500 11px var(--f-mono);color:var(--c-muted);letter-spacing:.12em;text-transform:uppercase}
+.countdown-tba{margin-top:var(--s-7);font:500 13px var(--f-mono);color:var(--c-muted)}
+@keyframes drift{to{transform:rotate(360deg)}}
+.sat{transform-origin:410px 410px;animation:drift 60s linear infinite}
+.sat.b{animation-duration:95s;animation-direction:reverse}
+
+/* ---- Sections ---- */
+section{padding:var(--s-8) 0;border-top:1px solid var(--c-line)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-6)}
+.sec-head h2{font-size:clamp(30px,4vw,46px);margin-top:var(--s-3);max-width:20ch}
+.sec-head p{color:var(--c-muted);max-width:44ch;margin:0}
+.grid{display:grid;gap:var(--s-4)}
+.g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){.g4,.g3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.g4,.g3,.g2{grid-template-columns:1fr}}
+.card{background:var(--c-panel);border:1px solid var(--c-line);border-radius:var(--r-lg);padding:var(--s-5)}
+.card h3{font-size:20px;margin:var(--s-3) 0 var(--s-2)}
+.card p{color:var(--c-muted);margin:0;font-size:15px}
+.icon{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(47,191,113,.1);color:var(--c-ion)}
+
+/* ---- Seraphim intro ---- */
+.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s-7);align-items:center}
+@media (max-width:900px){.intro{grid-template-columns:1fr}}
+.intro p{color:var(--c-muted);font-size:17px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4);margin-top:var(--s-5)}
+.stat b{display:block;font:600 28px var(--f-display);color:var(--c-text)}
+.stat small{color:var(--c-muted);font-size:13px}
+
+/* ---- Agenda ---- */
+.filters{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.chip{border:1px solid var(--c-line);background:transparent;color:var(--c-muted);border-radius:999px;padding:6px 14px;font:500 13px var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--c-text);color:var(--c-void);border-color:var(--c-text)}
+.agenda{list-style:none;margin:0;padding:0;border-top:1px solid var(--c-line)}
+.agenda li{display:grid;grid-template-columns:110px 120px 1fr;gap:var(--s-4);padding:var(--s-4) 0;border-bottom:1px solid var(--c-line);align-items:baseline}
+.agenda time{font:500 15px var(--f-mono);color:var(--c-text)}
+.tag{font:500 11px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-muted)}
+.tag.keynote{color:var(--c-halo)} .tag.panel{color:var(--c-ion)} .tag.demo{color:var(--c-plasma)}
+.agenda h3{font-size:18px;font-family:var(--f-body);font-weight:600;letter-spacing:0}
+.agenda p{margin:4px 0 0;color:var(--c-muted);font-size:14px}
+@media (max-width:640px){.agenda li{grid-template-columns:80px 1fr}.agenda .tag{grid-column:2}.agenda .body{grid-column:1/-1}}
+
+/* ---- Panels ---- */
+.panel-card{position:relative;overflow:hidden}
+.panel-card .num{font:600 56px var(--f-display);color:var(--c-line);position:absolute;right:16px;top:4px}
+.panel-card ul{margin:var(--s-3) 0 0;padding-left:18px;color:var(--c-muted);font-size:14px}
+
+/* ---- Speakers ---- */
+.speaker{text-align:left}
+.avatar{aspect-ratio:1;border-radius:var(--r-md);background:linear-gradient(135deg,#1c2a22,#0d1310);display:grid;place-items:center;color:var(--c-line);margin-bottom:var(--s-3);border:1px solid var(--c-line)}
+.speaker b{display:block;font-weight:600}
+.speaker small{color:var(--c-muted)}
+
+/* ---- Register ---- */
+.reg{display:grid;grid-template-columns:.9fr 1.1fr;gap:var(--s-7)}
+@media (max-width:900px){.reg{grid-template-columns:1fr}}
+form .row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
+@media (max-width:600px){form .row{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--s-4)}
+label{font-size:14px;font-weight:500}
+.req{color:var(--c-halo)}
+input,select,textarea{background:var(--c-night);border:1px solid var(--c-line);border-radius:var(--r-sm);color:var(--c-text);padding:12px 14px;font:inherit}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:#ff8f73}
+.err{display:block;color:#ff8f73;font-size:13px;min-height:1em}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--c-muted);margin-bottom:var(--s-3)}
+.check input{margin-top:4px}
+fieldset{border:0;padding:0;margin:0 0 var(--s-4)}
+legend{font-size:14px;font-weight:500;margin-bottom:6px}
+.seg{display:flex;gap:var(--s-2)}
+.seg label{flex:1;border:1px solid var(--c-line);border-radius:var(--r-sm);padding:12px;cursor:pointer;display:flex;gap:8px;align-items:center;font-weight:400}
+.seg input:checked + span{color:var(--c-halo)}
+.success{display:none;background:var(--c-panel);border:1px solid var(--c-halo);border-radius:var(--r-lg);padding:var(--s-6)}
+.success.show{display:block}
+.perks{list-style:none;padding:0;margin:var(--s-5) 0 0}
+.perks li{padding:10px 0;border-bottom:1px solid var(--c-line);color:var(--c-muted)}
+.perks li b{color:var(--c-text)}
+
+/* ---- Venue ---- */
+.map{aspect-ratio:16/10;border-radius:var(--r-lg);border:1px solid var(--c-line);background:
+  radial-gradient(circle at 55% 48%,rgba(248,168,58,.35) 0 6px,transparent 7px),
+  repeating-linear-gradient(0deg,transparent 0 38px,var(--c-line) 38px 39px),
+  repeating-linear-gradient(90deg,transparent 0 38px,var(--c-line) 38px 39px),var(--c-night);display:flex;align-items:flex-end;padding:var(--s-4);color:var(--c-muted);font:500 12px var(--f-mono)}
+dl.facts{margin:0} dl.facts dt{font:500 12px var(--f-mono);color:var(--c-muted);text-transform:uppercase;letter-spacing:.12em;margin-top:var(--s-4)} dl.facts dd{margin:4px 0 0}
+
+/* ---- Sponsors ---- */
+.tier{margin-bottom:var(--s-5)}
+.tier h3{font:500 12px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted);margin-bottom:var(--s-3)}
+.logo-slot{height:84px;border:1px dashed var(--c-line);border-radius:var(--r-md);display:grid;place-items:center;color:var(--c-muted);font-size:13px}
+
+/* ---- FAQ ---- */
+details{border-bottom:1px solid var(--c-line);padding:var(--s-4) 0}
+summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:var(--s-4)}
+summary::after{content:"+";color:var(--c-halo);font-family:var(--f-mono)}
+details[open] summary::after{content:"–"}
+details p{color:var(--c-muted);margin:var(--s-3) 0 0;max-width:70ch}
+
+/* ---- Footer ---- */
+footer.site{border-top:1px solid var(--c-line);padding:var(--s-7) 0;color:var(--c-muted);font-size:14px}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--s-5)}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
+footer h4{color:var(--c-text);font:600 13px var(--f-display);margin:0 0 var(--s-3)}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+footer a{color:var(--c-muted);text-decoration:none} footer a:hover{color:var(--c-text)}
+.legal{margin-top:var(--s-6);padding-top:var(--s-4);border-top:1px solid var(--c-line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s-3);font-size:13px}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="ArchangX home"><img src="assets/emblem-96.png" alt="" width="48" height="19">ARCHANGX <small>· Seraphim</small></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#agenda">Agenda</a></li>
+        <li><a href="#panels">Panels</a></li>
+        <li><a href="#speakers">Speakers</a></li>
+        <li><a href="#venue">Venue</a></li>
+        <li><a href="#sponsors">Sponsors</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#register">Register</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- ===== HERO (SCRUM-1320) ===== -->
+<div class="hero" id="top">
+  <svg class="orbit" viewBox="0 0 820 820" aria-hidden="true">
+    <defs><radialGradient id="glow"><stop offset="0" stop-color="#f8a83a" stop-opacity=".55"/><stop offset=".35" stop-color="#f8a83a" stop-opacity=".08"/><stop offset="1" stop-color="#f8a83a" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="410" cy="410" r="300" fill="url(#glow)"/>
+    <circle cx="410" cy="410" r="120" fill="#0d1310" stroke="#24302a"/>
+    <g fill="none" stroke="#24302a"><circle cx="410" cy="410" r="200"/><circle cx="410" cy="410" r="290"/><circle cx="410" cy="410" r="380"/></g>
+    <g class="sat"><rect x="404" y="204" width="12" height="12" fill="#2fbf71"/><rect x="384" y="207" width="16" height="6" fill="#2fbf71" opacity=".5"/><rect x="420" y="207" width="16" height="6" fill="#2fbf71" opacity=".5"/></g>
+    <g class="sat b"><rect x="404" y="114" width="10" height="10" fill="#e8197b"/><circle cx="700" cy="410" r="4" fill="#f8a83a"/></g>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow">ArchangX presents · Product launch</span>
+    <h1>The data centre <em>above</em> the clouds.</h1>
+    <p class="lede">Join us for the unveiling of <strong>Seraphim</strong>, a one-day summit on space data centres: compute, storage and sovereign data in orbit. Keynote, four expert panels and a live demo.</p>
+    <div class="meta">
+      <span><i></i><span id="date-label">Date to be announced</span> <span class="tbd">TBD</span></span>
+      <span><i></i>Toronto, ON · venue <span class="tbd">TBD</span></span>
+      <span><i></i>In person + livestream</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#register">Reserve your seat →</a>
+      <a class="btn btn-ghost" href="#agenda">View agenda</a>
+    </div>
+    <!-- Set data-start to an ISO datetime once confirmed, e.g. 2027-03-18T09:00:00-05:00 -->
+    <div id="countdown" data-start="" aria-live="polite"></div>
+  </div>
+</div>
+
+<!-- ===== ABOUT SERAPHIM (SCRUM-1320) ===== -->
+<section id="about">
+  <div class="wrap intro">
+    <div>
+      <span class="eyebrow">What is Seraphim</span>
+      <h2 style="font-size:clamp(30px,4vw,46px);margin:12px 0 20px">Cloud infrastructure, put in orbit.</h2>
+      <p>Seraphim is ArchangX's platform for running compute and storage in orbit. Data is processed where it is collected, in space. It is linked to sovereign ground infrastructure, and connected to terrestrial and 5G/6G non-terrestrial networks.</p>
+      <p>At the summit we show how it works, who it is for, and what the road from first launch to production looks like. <span class="tbd">COPY DRAFT — tech/legal review</span></p>
+      <div class="stat-row">
+        <div class="stat"><b>1</b><small>day</small></div>
+        <div class="stat"><b>4</b><small>expert panels</small></div>
+        <div class="stat"><b>20+</b><small>speakers <span class="tbd">TBD</span></small></div>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><div class="icon" aria-hidden="true">⌁</div><h3>Orbital compute</h3><p>Process sensor and Earth-observation data on orbit and downlink only the answers.</p></div>
+      <div class="card"><div class="icon" aria-hidden="true">▤</div><h3>Space storage</h3><p>Secure, custody-tracked storage designed for radiation, thermal and power limits.</p></div>
+      <div class="card"><div class="icon" aria-hidden="true">◈</div><h3>Sovereign data</h3><p>Control over jurisdiction and encryption, from the satellite to the ground core.</p></div>
+      <div class="card"><div class="icon" aria-hidden="true">⟡</div><h3>Edge AI &amp; NTN</h3><p>AI services at the network edge, available over 5G/6G non-terrestrial networks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AGENDA (SCRUM-1321) ===== -->
+<section id="agenda">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Programme · all times ET</span><h2>One day in orbit.</h2></div>
+      <div class="filters" role="group" aria-label="Filter sessions">
+        <button class="chip" aria-pressed="true" data-f="all">All</button>
+        <button class="chip" aria-pressed="false" data-f="keynote">Keynotes</button>
+        <button class="chip" aria-pressed="false" data-f="panel">Panels</button>
+        <button class="chip" aria-pressed="false" data-f="demo">Demo</button>
+      </div>
+    </div>
+    <ol class="agenda" id="agenda-list"></ol>
+  </div>
+</section>
+
+<!-- ===== PANELS (SCRUM-1322) ===== -->
+<section id="panels">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Panels</span><h2>Four conversations that define the field.</h2></div><p>Each panel has 3–4 practitioners and a moderator, and ends with audience Q&amp;A, both in the room and online.</p></div>
+    <div class="grid g2" id="panel-grid"></div>
+  </div>
+</section>
+
+<!-- ===== SPEAKERS (SCRUM-1322) ===== -->
+<section id="speakers">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Speakers</span><h2>Who's taking the stage.</h2></div><p>Speakers are announced in waves. <span class="tbd">Speaker list TBD</span></p></div>
+    <div class="grid g4" id="speaker-grid"></div>
+  </div>
+</section>
+
+<!-- ===== REGISTER (SCRUM-1323) ===== -->
+<section id="register">
+  <div class="wrap reg">
+    <div>
+      <span class="eyebrow">Registration</span>
+      <h2 style="font-size:clamp(30px,4vw,46px);margin:12px 0 16px">Reserve your seat.</h2>
+      <p style="color:var(--c-muted)">In-person seats are limited. When they fill up, we open a waitlist. Virtual attendees get a private livestream link and on-demand recordings.</p>
+      <ul class="perks">
+        <li><b>In person:</b> all sessions, live demo, lunch, networking reception</li>
+        <li><b>Virtual:</b> HD livestream with live captions, Q&amp;A, recordings</li>
+        <li><b>Ticket type / price:</b> <span class="tbd">TBD by Shahin</span></li>
+      </ul>
+    </div>
+    <div>
+      <!-- Front-end only. v1 recommendation (SCRUM-1323): submit to a Google Form in the ArchangX Workspace (free, no backend, D1). Cloud Run only if D1 is revisited. -->
+      <form id="reg-form" novalidate>
+        <div class="row">
+          <div class="field"><label for="fn">First name <span class="req">*</span></label><input id="fn" name="firstName" autocomplete="given-name" required><span class="err" id="fn-err"></span></div>
+          <div class="field"><label for="ln">Last name <span class="req">*</span></label><input id="ln" name="lastName" autocomplete="family-name" required><span class="err" id="ln-err"></span></div>
+        </div>
+        <div class="field"><label for="em">Work email <span class="req">*</span></label><input id="em" name="email" type="email" autocomplete="email" required><span class="err" id="em-err"></span></div>
+        <div class="row">
+          <div class="field"><label for="co">Organization <span class="req">*</span></label><input id="co" name="company" autocomplete="organization" required><span class="err" id="co-err"></span></div>
+          <div class="field"><label for="ti">Job title</label><input id="ti" name="title" autocomplete="organization-title"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="ct">Country</label><select id="ct" name="country"><option>Canada</option><option>United States</option><option>United Kingdom</option><option>Other</option></select></div>
+          <div class="field"><label for="hh">How did you hear about us?</label><select id="hh" name="source"><option value="">Select…</option><option>LinkedIn</option><option>Colleague</option><option>Press</option><option>ArchangX newsletter</option><option>Other</option></select></div>
+        </div>
+        <fieldset><legend>How will you attend? <span class="req">*</span></legend>
+          <div class="seg">
+            <label><input type="radio" name="mode" value="in-person" checked><span>In person</span></label>
+            <label><input type="radio" name="mode" value="virtual"><span>Virtual</span></label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="ac">Accessibility or dietary needs</label><textarea id="ac" name="needs" rows="2"></textarea></div>
+        <label class="check"><input type="checkbox" name="optin"> Send me ArchangX updates about Seraphim. I can unsubscribe at any time.</label>
+        <label class="check"><input type="checkbox" id="tos" name="terms" required> I agree to the <a href="#faq">Code of Conduct</a> and <a href="#faq">Privacy Notice</a>. <span class="req">*</span></label>
+        <span class="err" id="tos-err"></span>
+        <button class="btn btn-primary" type="submit" style="margin-top:8px">Complete registration</button>
+      </form>
+      <div class="success" id="reg-success" role="status" tabindex="-1">
+        <span class="eyebrow">You're in (preview)</span>
+        <h3 style="font-size:26px;margin:10px 0">Thanks, <span id="ok-name"></span>.</h3>
+        <p style="color:var(--c-muted);margin:0">This template only previews the form, so nothing was sent. In the live build, a confirmation email with your ticket and calendar invite goes to <b id="ok-email"></b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VENUE (SCRUM-1324) ===== -->
+<section id="venue">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Venue &amp; travel</span><h2>Toronto, in person.</h2></div></div>
+    <div class="grid g2">
+      <div class="map" role="img" aria-label="Map placeholder, venue to be confirmed">MAP EMBED · venue TBD</div>
+      <dl class="facts">
+        <dt>Venue</dt><dd>[Venue name] · [Address], Toronto, ON <span class="tbd">TBD</span></dd>
+        <dt>Getting there</dt><dd>UP Express from Pearson (YYZ) to Union Station in 25 minutes, then TTC. Parking details TBD.</dd>
+        <dt>Accessibility</dt><dd>Step-free access, live captioning and a quiet room. Tell us about your needs when you register, or email events@archangx.com.</dd>
+        <dt>Check-in</dt><dd>Opens 08:00. Bring photo ID and the QR code from your confirmation email.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPONSORS (SCRUM-1325) ===== -->
+<section id="sponsors">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Sponsors &amp; partners</span><h2>Built with the ecosystem.</h2></div><p>Interested in partnering? Email <b>sponsors@archangx.com</b>.</p></div>
+    <div class="tier"><h3>Orbital</h3><div class="grid g2"><div class="logo-slot">Logo</div><div class="logo-slot">Logo</div></div></div>
+    <div class="tier"><h3>Constellation</h3><div class="grid g3"><div class="logo-slot">Logo</div><div class="logo-slot">Logo</div><div class="logo-slot">Logo</div></div></div>
+    <div class="tier"><h3>Ground station · academic &amp; media</h3><div class="grid g4"><div class="logo-slot">Logo</div><div class="logo-slot">Logo</div><div class="logo-slot">Logo</div><div class="logo-slot">Logo</div></div></div>
+  </div>
+</section>
+
+<!-- ===== FAQ (SCRUM-1327) ===== -->
+<section id="faq">
+  <div class="wrap" style="max-width:860px">
+    <div class="sec-head"><div><span class="eyebrow">FAQ</span><h2>Good questions.</h2></div></div>
+    <details><summary>Who should attend?</summary><p>Satellite operators, cloud and data centre architects, telecom and NTN leaders, defence and sovereign-cloud buyers, investors, researchers and press.</p></details>
+    <details><summary>Can I attend online?</summary><p>Yes. Register as a virtual attendee and we'll email you a private livestream link before the event. All keynotes and panels are streamed with live captions.</p></details>
+    <details><summary>Will sessions be recorded?</summary><p>Yes. Recordings will be on this site within about a week of the event.</p></details>
+    <details><summary>Is there a cost to attend?</summary><p>Ticket details will be announced soon. <span class="tbd">TBD</span></p></details>
+    <details><summary>Is the venue accessible?</summary><p>Yes. We are committed to an accessible event under AODA. Tell us about your needs when you register.</p></details>
+    <details><summary>Will there be photography?</summary><p>Yes. The event will be photographed and filmed. See the Privacy Notice for details and how to opt out.</p></details>
+    <details><summary>I'm a journalist. How do I get accredited?</summary><p>Email press@archangx.com. A media kit and accreditation form will be in the press room.</p></details>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div><b style="color:var(--c-text);font-family:var(--f-display)">SERAPHIM</b> by <a href="index.html" style="color:var(--c-text)">ArchangX</a><p style="max-width:34ch">Seraphim Launch: Space Data Centres Summit. Toronto, ON + livestream.</p></div>
+      <div><h4>Event</h4><ul><li><a href="#agenda">Agenda</a></li><li><a href="#speakers">Speakers</a></li><li><a href="#register">Register</a></li><li><a href="#venue">Venue</a></li></ul></div>
+      <div><h4>Media</h4><ul><li><a href="#faq">Press room</a></li><li><a href="#sponsors">Sponsors</a></li><li><a href="#faq">Watch live</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li>events@archangx.com</li><li>press@archangx.com</li><li>sponsors@archangx.com</li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 ArchangX. All rights reserved.</span><span><a href="#faq">Code of Conduct</a> · <a href="#faq">Privacy</a> · <a href="#faq">Terms</a> · <a href="index.html">archangx.com</a></span></div>
+  </div>
+</footer>
+
+
+<script>
+/* ---------- Content (move to CMS in SCRUM-1319) ---------- */
+const SESSIONS = [
+  {t:"08:00",type:"break",title:"Registration, badge pickup & breakfast"},
+  {t:"09:00",type:"keynote",title:"Unveiling Seraphim: the data centre above the clouds",desc:"Opening keynote by ArchangX leadership. [Speaker TBD]"},
+  {t:"09:45",type:"panel",title:"Panel 1: Why orbit? The economics & physics of space data centres"},
+  {t:"10:45",type:"break",title:"Coffee & exhibits"},
+  {t:"11:15",type:"panel",title:"Panel 2: Power, thermal & radiation: engineering compute in orbit"},
+  {t:"12:15",type:"break",title:"Lunch & networking"},
+  {t:"13:30",type:"demo",title:"Live demo: Seraphim orbital edge compute & ground segment"},
+  {t:"14:15",type:"panel",title:"Panel 3: Connectivity: optical ISLs, DVB-S2X & 5G/6G NTN"},
+  {t:"15:15",type:"break",title:"Break"},
+  {t:"15:30",type:"panel",title:"Panel 4: Sovereignty, security & regulation of data in space"},
+  {t:"16:30",type:"keynote",title:"Fireside chat: Investing in the orbital cloud"},
+  {t:"17:15",type:"keynote",title:"Closing remarks & Seraphim roadmap"},
+  {t:"17:30",type:"break",title:"Networking reception"}
+];
+const PANELS = [
+  {title:"Why orbit?",sub:"The economics & physics of space data centres",q:["When does processing in orbit beat downlinking raw data?","Launch costs, lifetime and total cost of ownership","Which workloads move first?"]},
+  {title:"Power, thermal & radiation",sub:"Engineering compute in orbit",q:["Rejecting heat without convection","Rad-tolerant vs COTS hardware","Designing for failure and graceful degradation"]},
+  {title:"Connectivity",sub:"Optical ISLs, DVB-S2X & 5G/6G NTN",q:["Feeder links and adaptive coding and modulation","Optical inter-satellite meshes","Bringing NTN services to the orbital edge"]},
+  {title:"Sovereignty & security",sub:"Regulation of data in space",q:["Whose law applies to data in orbit?","Cryptographic custody from sensor to ground","Requirements for defence and the public sector"]}
+];
+const SPEAKERS = Array.from({length:8},(_,i)=>({name:"Speaker "+(i+1),role:"Title · Organization",tbd:true}));
+
+/* ---------- Render ---------- */
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function renderAgenda(f){
+  const el=document.getElementById("agenda-list");
+  el.innerHTML=SESSIONS.filter(s=>f==="all"||s.type===f).map(s=>`
+    <li><time>${s.t}</time><span class="tag ${s.type}">${s.type==="break"?"Break":s.type}</span>
+    <div class="body"><h3>${esc(s.title)}</h3>${s.desc?`<p>${esc(s.desc)}</p>`:""}</div></li>`).join("");
+}
+document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  renderAgenda(b.dataset.f);
+}));
+renderAgenda("all");
+document.getElementById("panel-grid").innerHTML=PANELS.map((p,i)=>`
+  <article class="card panel-card"><span class="num" aria-hidden="true">0${i+1}</span>
+  <span class="eyebrow" style="color:var(--c-ion)">Panel ${i+1}</span><h3>${esc(p.title)}</h3><p>${esc(p.sub)}</p>
+  <ul>${p.q.map(q=>`<li>${esc(q)}</li>`).join("")}</ul>
+  <p style="margin-top:12px;font-size:13px">Moderator &amp; panellists <span class="tbd">TBD</span></p></article>`).join("");
+document.getElementById("speaker-grid").innerHTML=SPEAKERS.map(s=>`
+  <div class="speaker"><div class="avatar" aria-hidden="true"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="18" r="9" fill="currentColor"/><path d="M6 46c2-10 9-15 18-15s16 5 18 15" fill="currentColor"/></svg></div>
+  <b>${esc(s.name)}</b><small>${esc(s.role)}</small></div>`).join("");
+
+/* ---------- Countdown ---------- */
+(function(){
+  const box=document.getElementById("countdown"), iso=box.dataset.start;
+  if(!iso){box.className="countdown-tba";box.textContent="Countdown starts once the date is confirmed.";return;}
+  const target=new Date(iso);
+  document.getElementById("date-label").textContent=target.toLocaleDateString("en-CA",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  box.className="countdown";
+  const tick=()=>{let d=Math.max(0,target-new Date());const u=[["days",864e5],["hours",36e5],["min",6e4],["sec",1e3]];
+    box.innerHTML=u.map(([l,ms])=>{const v=Math.floor(d/ms);d-=v*ms;return `<div><b>${String(v).padStart(2,"0")}</b><small>${l}</small></div>`}).join("");};
+  tick(); setInterval(tick,1000);
+})();
+
+/* ---------- Mobile nav ---------- */
+const mb=document.querySelector(".menu-btn"), nav=document.getElementById("nav");
+mb.addEventListener("click",()=>{const o=nav.classList.toggle("open");mb.setAttribute("aria-expanded",o)});
+nav.addEventListener("click",e=>{if(e.target.tagName==="A"){nav.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
+
+/* ---------- Registration (client-side validation only) ---------- */
+const form=document.getElementById("reg-form");
+function setErr(id,msg){const i=document.getElementById(id),e=document.getElementById(id+"-err");if(i)i.setAttribute("aria-invalid",!!msg);if(e)e.textContent=msg||"";return !msg}
+form.addEventListener("submit",ev=>{
+  ev.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  let ok=true;
+  ok&=setErr("fn",v("fn")?"":"Please enter your first name.");
+  ok&=setErr("ln",v("ln")?"":"Please enter your last name.");
+  ok&=setErr("em",/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("em"))?"":"Please enter a valid email.");
+  ok&=setErr("co",v("co")?"":"Please enter your organization.");
+  const tos=document.getElementById("tos").checked;document.getElementById("tos-err").textContent=tos?"":"Please accept to continue.";ok&=tos;
+  if(!ok){form.querySelector('[aria-invalid="true"]')?.focus();return;}
+  document.getElementById("ok-name").textContent=v("fn");
+  document.getElementById("ok-email").textContent=v("em");
+  form.style.display="none";const s=document.getElementById("reg-success");s.classList.add("show");s.focus();
+});
+
+</script>
+</body>
+</html>
