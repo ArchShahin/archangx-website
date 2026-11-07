@@ -92,6 +92,9 @@ docs/                      this documentation
 - No server-side code, database or user accounts: nothing to breach or patch on our side.
 - No cookies, analytics, trackers, external fonts or scripts: no third party sees the visitors.
 - The contact form never transmits data; it opens the visitor's own email app with a pre-filled message.
+- Exception: the Seraphim Summit registration form (`summit-2027.html`) posts the registrant's details to
+  FormSubmit (formsubmit.co), which emails them to shahin.vakilinia@archangx.com. Nothing is stored by the site;
+  personal email domains are refused in the browser. The address was activated once via FormSubmit's confirmation email.
 - HTTPS everywhere: Let's Encrypt certificate for `www.archangx.com` and `archangx.com`, renewed by GitHub;
   "Enforce HTTPS" is on, so `http://` redirects to `https://`.
 - The domain is verified on the ArchShahin account, so no other GitHub account can publish under it.

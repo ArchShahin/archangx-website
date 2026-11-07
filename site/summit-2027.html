@@ -26,7 +26,7 @@
   <span class="eyebrow">Toronto · 21–22 June 2027</span>
   <h1>Seraphim Summit: data centres <span class="flame-text">in orbit</span></h1>
   <p>Two days on the stack that puts data centres in orbit and the wildfire mission that proves it: a live digital twin demonstration, eight panels, an exhibition hall and a hackathon. Venue to be announced.</p>
-  <p><a class="btn" href="#register">Register</a></p>
+  <p><a class="btn" href="#register" data-open-register>Register</a></p>
 </div>
 
 <section class="block">
@@ -80,10 +80,69 @@
 <section class="block night" id="register">
   <div class="wrap two">
     <div class="head"><span class="tag">Registration</span><h2>Register with your work email</h2>
-      <p>Registration is free and open to work and university email addresses; personal addresses (Gmail, Outlook, Yahoo and similar) are not accepted. Online registration opens soon. Until then, email us from your work or university address with your name, organization, role, and which days you plan to attend.</p></div>
-    <div style="align-self:center"><a class="btn" href="mailto:shahin.vakilinia@archangx.com?subject=Register%3A%20Seraphim%20Summit%202027&amp;body=Name%3A%0AOrganization%3A%0ARole%3A%0ADays%20(Day%201%20conference%20%2F%20Day%202%20hackathon%20on%20site%20%2F%20Day%202%20online)%3A%0A">Register by email</a></div>
+      <p>Registration is free and open to work and university email addresses; personal addresses (Gmail, Outlook, Yahoo and similar) are not accepted. We confirm each registration by email.</p></div>
+    <div style="align-self:center"><button class="btn" type="button" data-open-register>Register</button></div>
   </div>
 </section>
+
+<dialog id="register-dialog" aria-labelledby="rg-title">
+  <form class="contact" id="register-form" novalidate>
+    <div class="dialog-head"><h3 id="rg-title">Register: Seraphim Summit 2027</h3>
+      <button type="button" class="dialog-close" aria-label="Close" data-close-register>×</button></div>
+    <label for="rg-name">Full name<input id="rg-name" name="name" required autocomplete="name"></label>
+    <label for="rg-email">Work or university email<input id="rg-email" name="email" type="email" required autocomplete="email"></label>
+    <label for="rg-org">Organization<input id="rg-org" name="organization" required autocomplete="organization"></label>
+    <label for="rg-role">Job title or role<input id="rg-role" name="role" required autocomplete="organization-title"></label>
+    <fieldset><legend>Days you will attend</legend>
+      <label class="check"><input type="checkbox" name="days" value="Day 1 conference (21 June)"> Day 1 conference, 21 June</label>
+      <label class="check"><input type="checkbox" name="days" value="Day 2 hackathon on site"> Day 2 hackathon, on site</label>
+      <label class="check"><input type="checkbox" name="days" value="Day 2 hackathon online"> Day 2 hackathon, online</label>
+    </fieldset>
+    <label for="rg-evening">Evening celebration
+      <select id="rg-evening" name="evening"><option>No</option><option>Yes</option><option>Yes, with family</option></select></label>
+    <label for="rg-notes">Interests, accessibility or dietary needs (optional)<textarea id="rg-notes" name="notes"></textarea></label>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="form-msg" id="rg-msg" role="status"></p>
+    <button class="btn" type="submit">Submit</button>
+    <p class="muted" style="font-size:14px">Your details are sent to ArchangX by email (via FormSubmit) and used only for this event.</p>
+  </form>
+</dialog>
+<script>
+(() => {
+  const dlg = document.getElementById("register-dialog"), form = document.getElementById("register-form"),
+        msg = document.getElementById("rg-msg"), btn = form.querySelector("button[type=submit]");
+  const personal = /@(gmail|googlemail|outlook|hotmail|live|msn|yahoo|ymail|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|yandex|qq|163|126|zoho|hey|fastmail|tutanota)\.[a-z.]+$/i;
+  const say = (t, ok) => { msg.textContent = t; msg.className = "form-msg " + (ok ? "ok" : "err"); };
+  document.querySelectorAll("[data-open-register]").forEach(b => b.addEventListener("click", e => {
+    e.preventDefault(); if (dlg.showModal) dlg.showModal(); else location.href = "mailto:shahin.vakilinia@archangx.com?subject=Register%3A%20Seraphim%20Summit%202027";
+  }));
+  dlg.querySelector("[data-close-register]").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const f = form.elements, v = n => f[n].value.trim();
+    const days = [...form.querySelectorAll("input[name=days]:checked")].map(c => c.value);
+    if (!form.checkValidity()) { say("Please fill in every required field with a valid email.", false); form.reportValidity(); return; }
+    if (personal.test(v("email"))) { say("Please use your work or university email; personal addresses are not accepted.", false); f.email.focus(); return; }
+    if (!days.length) { say("Please choose at least one day.", false); return; }
+    if (v("_honey")) return;
+    btn.disabled = true; say("Sending…", true);
+    try {
+      const r = await fetch("https://formsubmit.co/ajax/shahin.vakilinia@archangx.com", {
+        method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ _subject: "Registration: Seraphim Summit 2027 — " + v("name") + " (" + v("organization") + ")",
+          _template: "table", _replyto: v("email"), name: v("name"), email: v("email"), organization: v("organization"),
+          role: v("role"), days: days.join("; "), evening: v("evening"), notes: v("notes") || "—" })
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || String(j.success) === "false") throw new Error(j.message || r.status);
+      form.reset(); say("Thank you! Your registration was received. We will confirm by email.", true);
+    } catch (err) {
+      say("Sorry, it could not be sent. Please email shahin.vakilinia@archangx.com instead.", false);
+    } finally { btn.disabled = false; }
+  });
+})();
+</script>
 </main>
 <footer class="site">
   <div class="wrap">

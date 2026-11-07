@@ -124,3 +124,16 @@ footer.site nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 
 footer.site nav a { color: #d8e0da; text-decoration: none; }
 footer.site p { margin-inline: auto; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } a.card { transition: none; } }
+
+/* registration dialog (summit-2027.html) */
+dialog#register-dialog { width: min(560px, 100% - 32px); max-height: 92vh; padding: 0; border: 0; border-radius: 14px; background: transparent; }
+dialog#register-dialog::backdrop { background: rgba(13, 19, 16, .65); }
+dialog#register-dialog form.contact { margin: 0; }
+.dialog-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.dialog-close { font-size: 28px; line-height: 1; background: none; border: 0; cursor: pointer; color: var(--muted); }
+form.contact fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; display: grid; gap: 6px; }
+form.contact legend { font-weight: 600; font-size: 15px; padding: 0 4px; }
+form.contact label.check { display: flex; gap: 8px; align-items: center; font-weight: 400; }
+form.contact .hp { position: absolute; left: -9999px; }
+.form-msg:empty { display: none; }
+.form-msg.ok { color: var(--wing); } .form-msg.err { color: #b3261e; }
