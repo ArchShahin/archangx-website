@@ -93,6 +93,8 @@
     <label for="rg-email">Work or university email<input id="rg-email" name="email" type="email" required autocomplete="email"></label>
     <label for="rg-org">Organization<input id="rg-org" name="organization" required autocomplete="organization"></label>
     <label for="rg-role">Job title or role<input id="rg-role" name="role" required autocomplete="organization-title"></label>
+    <label for="rg-phone">Phone number<input id="rg-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[+0-9 ()./-]{7,25}" placeholder="+1 514 555 0123"></label>
+    <label for="rg-linkedin">LinkedIn profile (optional)<input id="rg-linkedin" name="linkedin" type="url" autocomplete="url" placeholder="https://www.linkedin.com/in/your-name"></label>
     <fieldset><legend>Days you will attend</legend>
       <label class="check"><input type="checkbox" name="days" value="Day 1 conference (21 June)"> Day 1 conference, 21 June</label>
       <label class="check"><input type="checkbox" name="days" value="Day 2 hackathon on site"> Day 2 hackathon, on site</label>
@@ -123,8 +125,9 @@
     e.preventDefault();
     const f = form.elements, v = n => f[n].value.trim();
     const days = [...form.querySelectorAll("input[name=days]:checked")].map(c => c.value);
-    if (!form.checkValidity()) { say("Please fill in every required field with a valid email.", false); form.reportValidity(); return; }
+    if (!form.checkValidity()) { say("Please fill in every required field (valid email and phone number).", false); form.reportValidity(); return; }
     if (personal.test(v("email"))) { say("Please use your work or university email; personal addresses are not accepted.", false); f.email.focus(); return; }
+    if (v("linkedin") && !/^https?:\/\/([a-z]{2,3}\.)?linkedin\.com\//i.test(v("linkedin"))) { say("Please enter a LinkedIn link (https://www.linkedin.com/in/…) or leave it empty.", false); f.linkedin.focus(); return; }
     if (!days.length) { say("Please choose at least one day.", false); return; }
     if (v("_honey")) return;
     btn.disabled = true; say("Sending…", true);
@@ -133,7 +136,7 @@
         method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({ _subject: "Registration: Seraphim Summit 2027 — " + v("name") + " (" + v("organization") + ")",
           _template: "table", _replyto: v("email"), name: v("name"), email: v("email"), organization: v("organization"),
-          role: v("role"), days: days.join("; "), evening: v("evening"), notes: v("notes") || "—" })
+          role: v("role"), phone: v("phone"), linkedin: v("linkedin") || "—", days: days.join("; "), evening: v("evening"), notes: v("notes") || "—" })
       });
       const j = await r.json().catch(() => ({}));
       if (!r.ok || String(j.success) === "false") throw new Error(j.message || r.status);
