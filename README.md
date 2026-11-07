@@ -1,6 +1,6 @@
 # archangx.com
 
-The ArchangX website: seven static pages, hosted free on GitHub Pages, published by GitHub Actions on every push.
+The ArchangX website: eight static pages, hosted free on GitHub Pages, published by GitHub Actions on every push.
 No servers, no third-party scripts or fonts.
 
 | Page | File |

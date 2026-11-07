@@ -1,6 +1,6 @@
 # ArchangX website: architecture
 
-**What it is.** www.archangx.com is a static website of seven pages, published by GitHub Actions to GitHub
+**What it is.** www.archangx.com is a static website of eight pages, published by GitHub Actions to GitHub
 Pages and served over HTTPS through GitHub's CDN. DNS stays with Squarespace (the domain registrar).
 There is no server, no database, and no third-party script, font or tracker.
 
@@ -49,6 +49,7 @@ flowchart TB
   W <-->|runs on| S
   S <-->|modelled by| T
   T -->|protects the mission of| W
+  X --> SU[summit-2027.html<br/>Seraphim Summit 2027]
   X --> CO
   AB --> CO
 ```
@@ -61,7 +62,7 @@ running on the **Technology Stack**, which the **Digital Twin** models. Those th
 
 ```
 site/                      everything that is published
-  index.html ... contact.html   the seven pages (plain HTML, shared header, nav and footer)
+  index.html ... contact.html   the eight pages (plain HTML, shared header, nav and footer)
   assets/style.css         one stylesheet for all pages (brand palette and components)
   assets/logo.png          full logo, light backgrounds      (from Logo/Files/logo, 900 px)
   assets/logo-dark.png     full logo with white wordmark, dark backgrounds
