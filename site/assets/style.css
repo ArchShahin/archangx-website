@@ -137,3 +137,10 @@ form.contact label.check { display: flex; gap: 8px; align-items: center; font-we
 form.contact .hp { position: absolute; left: -9999px; }
 .form-msg:empty { display: none; }
 .form-msg.ok { color: var(--wing); } .form-msg.err { color: #b3261e; }
+
+/* summit announcement on the home page, secondary button */
+.announce { display: grid; gap: 4px; justify-items: center; text-align: center; max-width: 640px; padding: 16px 22px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; transition: transform .2s; }
+.announce:hover { transform: translateY(-2px); }
+.announce b { font-family: var(--serif); font-size: 21px; }
+.announce span:last-child { color: var(--muted); font-size: 15px; }
+.btn.ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 2px var(--flame-2); }
