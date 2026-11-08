@@ -25,6 +25,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check every linked file exists
         run: python3 tools/check_site.py
+      - name: Add content hashes to asset URLs, so visitors get changed CSS and images without clearing their cache
+        run: bash tools/fingerprint_assets.sh site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

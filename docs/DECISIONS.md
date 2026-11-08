@@ -44,3 +44,14 @@ depends on both.
 **Decision.** The About page states only what Shahin's own documents show (role, programme, areas of work).
 **Why.** A public biography must be accurate. Degrees, prior roles, a photo or a LinkedIn link are added when
 Shahin provides them.
+
+## D7. Cache busting at deploy time, not in the source (2026-11-07)
+
+**Context.** GitHub Pages serves every file with `Cache-Control: max-age=600`, and the headers can't be changed.
+After the design refresh, visitors who reloaded saw the new pages with the old cached stylesheet until they did a
+hard reload.
+**Decision.** The deploy workflow runs `tools/fingerprint_assets.sh`, which appends a content hash to every
+`assets/...` URL (`style.css?v=3f9a1c02be`) in the published copy. Source files keep plain URLs.
+**Why.** A changed file gets a new URL, so browsers fetch it at once; an unchanged file keeps its URL and stays
+cached. No manual version bumps to forget, and local preview is unaffected.
+**Revisit when.** The site moves to a host that allows custom cache headers, or gains a build step.
