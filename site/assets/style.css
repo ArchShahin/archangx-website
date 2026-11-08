@@ -446,3 +446,40 @@ ol.steps .refs a { padding: 3px 8px; border-radius: 6px; font: 700 11.5px/1.2 va
 @media (prefers-reduced-motion: no-preference) { .band .chips { animation: rise .3s var(--ease) both; } }
 @media (prefers-reduced-motion: reduce) { .band .caret { transition: none; } }
 .band .chips[hidden] { display: none; }
+/* Technology Stack, layer cards with five fields: one card per row; below 768 px a Details button hides the last four */
+.howread { margin-top: 28px; padding: 24px 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-sm); display: grid; gap: 12px; }
+.howread h3 { font-size: 18px; }
+.howread > p { margin: 0; color: var(--muted); font-size: 16px; }
+.howread dl { margin: 0; display: grid; gap: 8px 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.howread dl div { display: grid; grid-template-columns: auto 1fr; gap: 8px; font-size: 15px; align-items: baseline; }
+.howread dt { font-weight: 700; } .howread dd { margin: 0; color: var(--muted); }
+.expandall { display: none; gap: 10px; }
+.expandall .btn { padding: 10px 18px; font-size: 14px; }
+.layers { grid-template-columns: 1fr; }
+.layercard { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 10px 40px; padding: 30px 32px; }
+.layercard > .layer-head, .layercard > .what, .layercard > .details-toggle { grid-column: 1; }
+.layercard > .details { grid-column: 2; grid-row: 1 / span 3; display: grid; gap: 8px; align-content: start; }
+.layer-head { display: grid; gap: 10px; justify-items: start; }
+.layercard p, .layercard li { max-width: 75ch; }
+.layercard .what { color: var(--ink); font-size: 16.5px; }
+.layercard h4 { margin: 6px 0 0; font: 700 12px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--wing-mid); }
+.layercard .details > p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.layercard ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); font-size: 15.5px; }
+.layercard .numbers { margin-top: 4px; padding: 12px 16px; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--flame-1) 10%, var(--card));
+                      border: 1px solid color-mix(in srgb, var(--flame-2) 22%, transparent); display: grid; gap: 4px; }
+.layercard .numbers h4 { margin: 0; color: var(--flame-ink); }
+.layercard .numbers p { color: var(--ink); font-size: 15px; }
+.layercard .numbers b { color: var(--flame-ink); }
+.layercard .watched { font-size: 14px; color: var(--muted); }
+.layercard .watched b { color: var(--ink); }
+.details-toggle { display: none; }
+@media (max-width: 899px) { .layercard { grid-template-columns: 1fr; } .layercard > .details { grid-column: 1; grid-row: auto; } }
+@media (max-width: 767px) {
+  .expandall { display: flex; }
+  .details-toggle { display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 8px 14px; border-radius: 99px; border: 1.5px solid var(--wing);
+                    background: transparent; color: var(--wing); font: 700 14px/1 var(--sans); cursor: pointer; }
+  .details-toggle::after { content: ""; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0; rotate: 45deg; translate: 0 -2px; }
+  .layercard.open .details-toggle::after { rotate: 225deg; translate: 0 2px; }
+  .layercard:not(.open) > .details { display: none; }
+  .layercard { padding: 24px 22px; }
+}
