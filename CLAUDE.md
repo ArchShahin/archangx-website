@@ -17,7 +17,9 @@ no framework, no backend. Hosted on GitHub Pages; **every push to `main` goes li
 - `docs/`: ARCHITECTURE, DEPLOYMENT (DNS/HTTPS), OPERATIONS (update, roll back, troubleshoot), DECISIONS
   (design records D1-D7), and `docs/events/` (event material, e.g. the Luma pack for Summit 2027).
 
-Pages: `index`, `wildfire`, `technology-stack`, `digital-twin`, `exhibitions`, `summit-2027`, `about`, `contact`.
+Pages: `index`, `guardian` (Seraphim Guardian landing), `wildfire` (Guardian Uriel), `guardian-aurora`, `technology-stack`,
+`digital-twin`, `exhibitions`, `summit-2027`, `about`, `contact`. Product rules for Guardian: `docs/SERAPHIM_GUARDIAN.md`
+and decision D8 (Guardian Aurora is conceptual and non-operational; readiness labels; no unverified performance claims).
 
 ## Commands
 ```bash
