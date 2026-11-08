@@ -12,7 +12,7 @@ No invitee is named as a speaker; add names only after each one confirms.
 | End | Tue 22 June 2027, 18:00 (America/Toronto). Hackathon hours to confirm |
 | Location | Toronto, Ontario. Venue to be announced (choose "Location TBD") |
 | Visibility | Private until the venue and keynote are confirmed, then Public |
-| Tickets | Free |
+| Tickets | Free: Canadian Space Agency, Telesat and MDA Space staff (official email), students worldwide (online) and the hackathon. Paid tier: industry and investors (price to be set); sponsors get exhibition space |
 | Require approval | **On.** Approve only work or university email addresses (see "Screening" below) |
 | Capacity | Set once the venue is known; turn on the waitlist |
 | Hosts | ArchangX (calendar), Shahin Vakilinia |
@@ -47,7 +47,7 @@ Seraphim is ArchangX's protocol stack for data centres in orbit: onboard compute
 
 Five tracks: fire detection, energy dispatch, agentic operations, data platform and security. Prizes. Open to students and professionals, on site in Toronto or online from anywhere.
 
-**Registration.** Register with your work or university email. Registrations from personal addresses (Gmail, Outlook, Yahoo and similar) are not approved. Speakers and partners will be announced as they confirm.
+**Registration.** Register with your work or university email. Free for Canadian Space Agency, Telesat and MDA Space staff, for students worldwide (online) and for the hackathon; industry and investors join on a paid tier, and sponsors get exhibition space. Registrations from personal addresses (Gmail, Outlook, Yahoo and similar) are not approved. Speakers and partners will be announced as they confirm.
 
 Questions: contact@archangx.com · www.archangx.com
 

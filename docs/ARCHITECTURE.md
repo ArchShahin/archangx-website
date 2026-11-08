@@ -75,6 +75,7 @@ site/                      everything that is published
   assets/logo-dark.png     full logo with white wordmark, dark backgrounds
   assets/emblem*.png       wings-and-flame emblem (section marks, header, watermarks)
   assets/favicon.ico, apple-touch-icon.png
+  assets/sdc-io-*.jpg      SDC-IO architecture diagrams (Exhibitions slideshow)
   CNAME                    www.archangx.com (tells GitHub Pages the custom domain)
   .nojekyll                serve files as-is, no Jekyll processing
 tools/check_site.py        link and file checker, run locally and in CI
