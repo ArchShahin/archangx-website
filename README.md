@@ -1,20 +1,23 @@
 # archangx.com
 
-The ArchangX website: eight static pages, hosted free on GitHub Pages, published by GitHub Actions on every push.
+The ArchangX website: ten static pages, hosted free on GitHub Pages, published by GitHub Actions on every push.
 No servers, no third-party scripts or fonts.
 
 | Page | File |
 |---|---|
-| Home: how it fits together (Wildfire AI on top of the Technology Stack ⇄ Digital Twin) | `site/index.html` |
-| ML Wildfire Detection | `site/wildfire.html` |
+| Home: how it fits together (Seraphim Guardian on top of the Technology Stack ⇄ Digital Twin) | `site/index.html` |
+| Seraphim Guardian: The Eternal Watch (product family landing page) | `site/guardian.html` |
+| Guardian Uriel: wildfire intelligence | `site/wildfire.html` |
+| Guardian Aurora: conceptual Arctic early-warning research module | `site/guardian-aurora.html` |
 | Technology Stack of Space Data Centres | `site/technology-stack.html` |
 | Digital Twin | `site/digital-twin.html` |
 | Exhibitions | `site/exhibitions.html` |
-| About Shahin Vakilinia | `site/about.html` |
+| About (Shahin Vakilinia) | `site/about.html` |
 | Contact | `site/contact.html` |
 
 Documentation: [architecture and diagrams](docs/ARCHITECTURE.md) · [deployment, DNS and HTTPS](docs/DEPLOYMENT.md) ·
-[operations: update, roll back, troubleshoot](docs/OPERATIONS.md) · [design decisions](docs/DECISIONS.md)
+[operations: update, roll back, troubleshoot](docs/OPERATIONS.md) · [design decisions](docs/DECISIONS.md) ·
+[Seraphim Guardian product family](docs/SERAPHIM_GUARDIAN.md)
 
 ## Edit the site
 - Text: `site/<page>.html` · styles for every page: `site/assets/style.css`

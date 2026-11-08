@@ -65,3 +65,19 @@ hard reload.
 **Why.** A changed file gets a new URL, so browsers fetch it at once; an unchanged file keeps its URL and stays
 cached. No manual version bumps to forget, and local preview is unaffected.
 **Revisit when.** The site moves to a host that allows custom cache headers, or gains a build step.
+
+## D8. Seraphim Guardian: honest readiness, Aurora stays conceptual (2026-11-08)
+
+**Context.** The wildfire work became a product family, Seraphim Guardian (`guardian.html`), with Guardian Uriel
+(wildfire intelligence, the former ML Wildfire Detection page at the same URL) and Guardian Aurora (Arctic early
+warning). Brand language and diagrams: `docs/SERAPHIM_GUARDIAN.md`.
+**Decision.** Every capability on the Guardian pages carries a readiness label: Designed (written down in the
+research), Prototype (running in the digital twin on synthetic data) or Research target (not yet built). Guardian
+Aurora is presented only as a conceptual, non-operational research module: no target tracking, interception
+guidance, launch-location estimation or engagement functionality, no realistic trajectories in the twin, synthetic
+data only, and no detection-performance claims without verified evidence. The spiritual names are described as a
+posture (a constant watch), never as a technological capability.
+**Why.** The pages are read by agencies, operators and investors. Overstating readiness or implying an operational
+defence capability would damage credibility and could carry regulatory consequences.
+**Revisit when.** Flight data or an approved programme changes a label or Aurora's status; change the page and this
+record together.

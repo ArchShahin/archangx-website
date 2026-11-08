@@ -47,21 +47,24 @@ page. Nobody needs to clear their cache. The source files keep plain URLs (see [
 
 ```mermaid
 flowchart TB
-  H[index.html<br/>Home: how it fits together] --> W[wildfire.html<br/>ML Wildfire Detection]
+  H[index.html<br/>Home: how it fits together] --> G[guardian.html<br/>Seraphim Guardian]
+  G --> W[wildfire.html<br/>Guardian Uriel]
+  G --> AU[guardian-aurora.html<br/>Guardian Aurora]
   H --> S[technology-stack.html<br/>Technology Stack]
   H --> T[digital-twin.html<br/>Digital Twin]
   H --> X[exhibitions.html<br/>Exhibitions]
-  H --> AB[about.html<br/>About Shahin Vakilinia]
+  H --> AB[about.html<br/>About]
   H --> CO[contact.html<br/>Contact]
-  W <-->|runs on| S
+  G <-->|runs on| S
   S <-->|modelled by| T
   T -->|protects the mission of| W
+  AU --> T
   X --> SU[summit-2027.html<br/>Seraphim Summit 2027]
   X --> CO
   AB --> CO
 ```
 
-The content model mirrors the company's own architecture: **ML Wildfire Detection is the application on top**,
+The content model mirrors the company's own architecture: **Seraphim Guardian (Guardian Uriel) is the product on top**,
 running on the **Technology Stack**, which the **Digital Twin** models. Those three pages cross-link through a
 "Connected" strip, and the home page draws the same structure.
 
