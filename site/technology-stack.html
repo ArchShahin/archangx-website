@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Technology Stack of Space Data Centres — ArchangX</title>
-<meta name="description" content="The ArchangX space data centre stack: sensors and links, heterogeneous and hybrid quantum-classical compute, orbital edge processing, and a sovereign data platform.">
+<title>Seraphim Technology Stack: 21 layers of a space data centre — ArchangX</title>
+<meta name="description" content="Seraphim, ArchangX's space data centre stack: 21 layers in six bands, from orbit and power to data, AI and agents, plus seven planes that cut across all of them.">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta property="og:title" content="Technology Stack of Space Data Centres — ArchangX">
-<meta property="og:description" content="The ArchangX space data centre stack: sensors and links, heterogeneous and hybrid quantum-classical compute, orbital edge processing, and a sovereign data platform.">
+<meta property="og:title" content="Seraphim Technology Stack: 21 layers of a space data centre — ArchangX">
+<meta property="og:description" content="How a constellation of satellites becomes a data centre in orbit: 21 layers, 7 cross-cutting planes, 10 Gb/s optical links and an alert on the ground in about 1.5 minutes. Every layer modelled before it flies.">
 <meta property="og:image" content="https://www.archangx.com/assets/logo.png">
 <link rel="canonical" href="https://www.archangx.com/technology-stack.html">
 <link rel="stylesheet" href="assets/style.css">
@@ -25,47 +25,227 @@
   <div class="crumbs"><a href="index.html">Home</a> / Technology Stack</div>
   <span class="eyebrow">Technology Stack</span>
   <h1>The space data centre, <span class="flame-text">layer by layer</span></h1>
-  <p>A sovereignty-first architecture for space-based intelligence: every layer, from the sensor to the data owner, is designed together, and every layer is modelled in the digital twin.</p>
+  <p>Seraphim is the software and protocol stack that turns a constellation of satellites into a data centre in orbit. It spans 21 layers, from the orbit itself to the applications people use, and seven planes that cut across all of them: security, sovereignty, regulation, risk, the digital twin, operations and engineering governance. Every layer is designed together, and every layer is modelled in our digital twin before anything flies.</p>
+  <dl class="stats" aria-label="Key figures">
+    <div><dt>21</dt><dd>layers, 7 cross-cutting planes</dd></div>
+    <div><dt>41–56 ms</dt><dd>onboard detection, ~1.5 min alert to ground (p95)</dd></div>
+    <div><dt>10 Gb/s</dt><dd>optical links between satellites</dd></div>
+    <div><dt>42</dt><dd>regulatory obligations, each with a test and a monitor</dd></div>
+  </dl>
+  <p class="stats-note">Simulated results: the figures on this page come from ArchangX's papers and digital-twin simulations, not from flight.</p>
 </div>
-<section class="block">
-  <div class="wrap">
-    <div class="head"><span class="eyebrow">The stack, top to bottom</span><h2>Five layers, one system</h2></div>
-    <div class="stack" aria-label="Technology stack, top to bottom">
-      <div class="layer l1"><b>Applications</b><span>ML wildfire detection, tasking, emergency logistics</span></div>
-      <div class="layer l2"><b>Sovereign data platform</b><span>Data stays under its owner's jurisdiction, end to end</span></div>
-      <div class="layer l3"><b>Orbital edge processing</b><span>AI inference where the data is captured</span></div>
-      <div class="layer l4"><b>Heterogeneous compute</b><span>CPUs, accelerators and hybrid quantum-classical computing</span></div>
-      <div class="layer l5"><b>Sensors and links</b><span>Multi-modal Earth observation, inter-satellite and ground links</span></div>
+
+<div class="wrap withtoc">
+<nav class="toc" aria-label="On this page">
+  <b>On this page</b>
+  <a href="#glance">At a glance</a>
+  <a href="#band1">Band 1 · Physical and orbit</a>
+  <a href="#band2">Band 2 · Power and thermal</a>
+  <a href="#band3">Band 3 · Hardware</a>
+  <a href="#band4">Band 4 · Links and platform</a>
+  <a href="#band5">Band 5 · Data</a>
+  <a href="#band6">Band 6 · AI and applications</a>
+  <a href="#planes">Seven planes</a>
+  <a href="#onefire">One fire</a>
+  <a href="#twin">Digital twin</a>
+</nav>
+<div class="toc-body">
+
+<section class="block" id="glance">
+  <div class="head"><span class="eyebrow">Bottom to top</span><h2>Twenty-one layers, six bands</h2>
+    <p>Select a band to see its layers; each layer opens its description below. The bar on the right is the seven planes that cut across every band.</p></div>
+  <div class="stackviz">
+    <div class="bands" aria-label="The six bands of the Seraphim stack, top to bottom">
+      <div class="band b6">
+        <button type="button" aria-expanded="false" aria-controls="band6-layers"><span class="band-name">AI, agents and applications</span><span class="band-range">L17–L21</span><span class="caret" aria-hidden="true"></span></button>
+        <div class="chips" id="band6-layers" hidden>
+          <a href="#l17"><b>L17</b> AI/ML models and perception</a><a href="#l18"><b>L18</b> MLOps and model lifecycle</a><a href="#l19"><b>L19</b> Agentic AI and assurance plane</a><a href="#l20"><b>L20</b> APIs, microservices and integration</a><a href="#l21"><b>L21</b> Applications and user experience</a>
+        </div>
+      </div>
+      <div class="band b5">
+        <button type="button" aria-expanded="false" aria-controls="band5-layers"><span class="band-name">Data</span><span class="band-range">L14–L16</span><span class="caret" aria-hidden="true"></span></button>
+        <div class="chips" id="band5-layers" hidden>
+          <a href="#l14"><b>L14</b> Data ingestion and streaming</a><a href="#l15"><b>L15</b> Data storage, lakehouse and caching</a><a href="#l16"><b>L16</b> Data governance, catalogue and quality</a>
+        </div>
+      </div>
+      <div class="band b4">
+        <button type="button" aria-expanded="false" aria-controls="band4-layers"><span class="band-name">Links, protocols and platform</span><span class="band-range">L09–L13</span><span class="caret" aria-hidden="true"></span></button>
+        <div class="chips" id="band4-layers" hidden>
+          <a href="#l09"><b>L09</b> Links, radio, optical and spectrum</a><a href="#l10"><b>L10</b> Protocols, routing and transport</a><a href="#l11"><b>L11</b> Firmware, OS and virtualization</a><a href="#l12"><b>L12</b> Platform services</a><a href="#l13"><b>L13</b> Observability, SRE and IT operations</a>
+        </div>
+      </div>
+      <div class="band b3">
+        <button type="button" aria-expanded="false" aria-controls="band3-layers"><span class="band-name">Compute, storage and network hardware</span><span class="band-range">L06–L08</span><span class="caret" aria-hidden="true"></span></button>
+        <div class="chips" id="band3-layers" hidden>
+          <a href="#l06"><b>L06</b> Compute hardware</a><a href="#l07"><b>L07</b> Storage hardware</a><a href="#l08"><b>L08</b> Network hardware and fabric</a>
+        </div>
+      </div>
+      <div class="band b2">
+        <button type="button" aria-expanded="false" aria-controls="band2-layers"><span class="band-name">Power and thermal</span><span class="band-range">L03–L05</span><span class="caret" aria-hidden="true"></span></button>
+        <div class="chips" id="band2-layers" hidden>
+          <a href="#l03"><b>L03</b> Power conversion and distribution</a><a href="#l04"><b>L04</b> Energy generation and storage</a><a href="#l05"><b>L05</b> Thermal and cooling</a>
+        </div>
+      </div>
+      <div class="band b1">
+        <button type="button" aria-expanded="false" aria-controls="band1-layers"><span class="band-name">Physical and orbit</span><span class="band-range">L01–L02</span><span class="caret" aria-hidden="true"></span></button>
+        <div class="chips" id="band1-layers" hidden>
+          <a href="#l01"><b>L01</b> Site, civil and orbit environment</a><a href="#l02"><b>L02</b> Structures, racks and mechanical</a>
+        </div>
+      </div>
     </div>
+    <nav class="planebar" aria-label="Seven cross-cutting planes">
+      <a href="#xsec"><b>XSEC</b><span>Security and zero trust</span></a>
+      <a href="#xsov"><b>XSOV</b><span>Sovereignty and data governance</span></a>
+      <a href="#xreg"><b>XREG</b><span>Regulation and compliance</span></a>
+      <a href="#xrsk"><b>XRSK</b><span>Risk and resilience</span></a>
+      <a href="#xdt"><b>XDT</b><span>Digital twin and simulation</span></a>
+      <a href="#xops"><b>XOPS</b><span>Mission and service operations</span></a>
+      <a href="#xpgm"><b>XPGM</b><span>Programme, QA and engineering governance</span></a>
+    </nav>
   </div>
 </section>
-<section class="block">
-  <div class="wrap cards">
-    <div class="card"><h3>Sovereignty first</h3><p>Who owns the data, where it may travel and who may process it are design inputs, not afterthoughts.</p></div>
-    <div class="card"><h3>Edge AI in orbit</h3><p>Models run beside the sensors, so the stack sends decisions and evidence instead of raw volume.</p></div>
-    <div class="card"><h3>Heterogeneous compute</h3><p>Different workloads get different hardware, including hybrid quantum-classical paths where they pay off.</p></div>
-    <div class="card"><h3>Assured operations</h3><p>An agent layer watches the platform, with security and compliance designed in, not bolted on.</p></div>
+
+<section class="block bandsec" id="band1">
+  <div class="head"><span class="eyebrow b1">Band 1 · L01–L02</span><h2>Physical and orbit</h2><p class="subtitle"><em>Where the data centre lives.</em></p></div>
+  <div class="layers">
+    <article class="card layercard" id="l01"><span class="code">L01</span><h3>Site, civil and orbit environment</h3><p>Low Earth orbit at 550 km; 4 planes × 12 satellites in a Walker-star constellation with multi-LTAN sun-synchronous planes; the dawn–dusk plane is the power reference. Radiation, atomic oxygen, debris and space weather (storms, solar particle events, polar-cap "space hurricanes") are design inputs, not afterthoughts.</p></article>
+    <article class="card layercard" id="l02"><span class="code">L02</span><h3>Structures, racks and mechanical</h3><p>Launch-qualified compute modules, radiator panels, deployables, vibration and thermal-vacuum qualification; conduction-only mounting because there is no air to cool anything.</p></article>
   </div>
 </section>
-<section class="block">
-  <div class="wrap two">
-    <div class="head"><span class="eyebrow">Connected to the digital twin</span><h2>Every layer has a model</h2>
+
+<section class="block bandsec" id="band2">
+  <div class="head"><span class="eyebrow b2">Band 2 · L03–L05</span><h2>Power and thermal</h2><p class="subtitle"><em>Energy is the scarcest resource in orbit; heat is the hardest to get rid of.</em></p></div>
+  <div class="layers">
+    <article class="card layercard" id="l03"><span class="code">L03</span><h3>Power conversion and distribution</h3><p>300–800 V DC bus; silicon-carbide and gallium-nitride converters; solid-state power controllers. Every point of conversion efficiency saves about 4 kg per 10 kW node; going from 95 % to 98.5 % saves roughly 750 kg per megawatt.</p></article>
+    <article class="card layercard" id="l04"><span class="code">L04</span><h3>Energy generation and storage</h3><p>Solar arrays (reference node 1.2 m², 451 W), Li-ion batteries (500–600 Wh) with a 30 % protection floor; eclipse seasons budgeted plane by plane.</p></article>
+    <article class="card layercard" id="l05"><span class="code">L05</span><h3>Thermal and cooling</h3><p>Radiators sized at 1.8–3.3 m² per kW; phase-change material buffers (0.4–0.8 kg) absorb compute bursts and refreeze in the idle half-orbit; a receding-horizon optimiser keeps battery and heat within limits.</p></article>
+  </div>
+</section>
+
+<section class="block bandsec" id="band3">
+  <div class="head"><span class="eyebrow b3">Band 3 · L06–L08</span><h2>Compute, storage and network hardware</h2><p class="subtitle"><em>The silicon.</em></p></div>
+  <div class="layers">
+    <article class="card layercard" id="l06"><span class="code">L06</span><h3>Compute hardware</h3><p>Radiation-tolerant GPU and TPU-class accelerators (400 W bursts); FPGAs for deterministic sensor processing and frame signing; radiation effects measured, not assumed (about one silent data corruption per 14–20 rad on TPU-class hardware).</p></article>
+    <article class="card layercard" id="l07"><span class="code">L07</span><h3>Storage hardware</h3><p>Radiation-tolerant flash with ECC; ring buffers on sensing satellites; object storage on aggregation nodes.</p></article>
+    <article class="card layercard" id="l08"><span class="code">L08</span><h3>Network hardware and fabric</h3><p>Optical inter-satellite terminals (two per aggregation node), Ka-band and optical ground terminals, onboard switching; SpaceWire / SpaceFibre from sensors to compute.</p></article>
+  </div>
+</section>
+
+<section class="block bandsec" id="band4">
+  <div class="head"><span class="eyebrow b4">Band 4 · L09–L13</span><h2>Links, protocols and platform</h2><p class="subtitle"><em>How the machine talks to itself and to the ground, and how software runs on it.</em></p></div>
+  <div class="layers">
+    <article class="card layercard" id="l09"><span class="code">L09</span><h3>Links, radio, optical and spectrum</h3><p>In-plane optical ISLs at 10 Gb/s (CCSDS 141.0-B-1), available 100 % of the orbit; cross-plane optical ISLs available ~77 %; Ka-band feeders at 1.5 Gb/s per station with DVB-S2X adaptive coding; optical downlinks; wide-beam RF fallback; 3GPP non-terrestrial network (NTN) links toward 6G.</p></article>
+    <article class="card layercard" id="l10"><span class="code">L10</span><h3>Protocols, routing and transport</h3><p>Delay-tolerant networking with Bundle Protocol v7 and BPSec; contact-graph routing from the predicted orbit; custody transfer to an in-plane neighbour within 10 seconds, so no single satellite loss can lose data; CCSDS TM/TC with SDLS for command and telemetry.</p></article>
+    <article class="card layercard" id="l11"><span class="code">L11</span><h3>Firmware, OS and virtualization</h3><p>Secure boot, A/B firmware updates with anti-rollback, hardened Linux, lightweight isolation for mixed-criticality workloads.</p></article>
+    <article class="card layercard" id="l12"><span class="code">L12</span><h3>Platform services</h3><p>Containers and orchestration designed for clusters that disconnect: lightweight Kubernetes (K3s/KubeEdge-class) and WebAssembly runtimes in orbit; Kubernetes, Terraform, CI/CD and GitOps on the ground; energy- and heat-aware workload placement.</p></article>
+    <article class="card layercard" id="l13"><span class="code">L13</span><h3>Observability, SRE and IT operations</h3><p>One OpenTelemetry pipeline across every layer; a margin vector per layer instead of a single health score; SLO burn-rate alerting; three layers of outlier detection (inside the computation, per telemetry channel, across the fleet).</p></article>
+  </div>
+</section>
+
+<section class="block bandsec" id="band5">
+  <div class="head"><span class="eyebrow b5">Band 5 · L14–L16</span><h2>Data</h2><p class="subtitle"><em>From raw pixels to a governed, replicated, sovereign record.</em></p></div>
+  <div class="layers">
+    <article class="card layercard" id="l14"><span class="code">L14</span><h3>Data ingestion and streaming (Zone 0)</h3><p>A Kafka-style event backbone bridged over the delay-tolerant network: ten topics from raw thermal frames to signed alerts and model updates; MQTT/CoAP at the sensor edge; content-hash identity and a hash-chained log so every event can be audited.</p></article>
+    <article class="card layercard" id="l15"><span class="code">L15</span><h3>Data storage, lakehouse and caching (Zones 3–4)</h3><p>Lakehouse tables (Apache Iceberg / Parquet / Zarr) on aggregation nodes; three caching tiers sized by how fresh each product must be; replication to the in-plane neighbour; the sovereign ground core in Canada as the system of record.</p></article>
+    <article class="card layercard" id="l16"><span class="code">L16</span><h3>Data governance, catalogue and quality</h3><p>STAC metadata and a conflict-free replicated catalogue that converges even after a plane has been out of contact; lineage, quality checks and four data-sovereignty classes (S1 public to S4 restricted, air-gapped).</p></article>
+  </div>
+</section>
+
+<section class="block bandsec" id="band6">
+  <div class="head"><span class="eyebrow b6">Band 6 · L17–L21</span><h2>AI, agents and applications</h2><p class="subtitle"><em>Where the data centre starts to think.</em></p></div>
+  <div class="layers">
+    <article class="card layercard" id="l17"><span class="code">L17</span><h3>AI/ML models and perception (Zones 1–2)</h3><p>Onboard wildfire detection: a physics gate (thermal-band rules) plus a small neural verifier, ≥ 99.6 % detection for a 20 m² fire; constellation-level optimisation for tasking, placement and energy. No large language model runs on a sensing satellite.</p></article>
+    <article class="card layercard" id="l18"><span class="code">L18</span><h3>MLOps and model lifecycle (Zone 5)</h3><p>Small adapters (LoRA) trained by federated learning across satellites; versioned, signed models; drift monitoring; a human-approved promotion gate.</p></article>
+    <article class="card layercard" id="l19"><span class="code">L19</span><h3>Agentic AI and assurance plane</h3><p>Macro-agents, one per layer (power, thermal, compute, network, data, AI, security, mission, governance, risk), run MicroAgents that use deterministic Skills over read-only views of the event log. Agents observe and recommend; they never command. A statistical faithfulness gate checks every claim, and an independent guardian blocks anything that could reduce safety.</p></article>
+    <article class="card layercard" id="l20"><span class="code">L20</span><h3>APIs, microservices and integration</h3><p>Event and REST APIs for operators and customers; standard interfaces for partner constellations and 6G networks (on-board service hosting, computing-context transfer).</p></article>
+    <article class="card layercard" id="l21"><span class="code">L21</span><h3>Applications and user experience</h3><p>Wildfire detection and alerting for agencies and responders; early warning for defence; compute and data services for satellite operators and Canadian carriers; the digital twin as a product.</p></article>
+  </div>
+</section>
+
+<section class="block" id="planes">
+  <div class="head"><span class="eyebrow">Seven planes that cut across every layer</span><h2>What holds the stack together</h2></div>
+  <div class="cards planes">
+    <article class="card planecard" id="xsec"><span class="code x">XSEC</span><h3>Security and zero trust</h3><p>A verified identity for every node and every agent; attestation no older than 24 hours; post-quantum signatures (ML-DSA, FN-DSA) and key exchange (ML-KEM); BPSec on every bundle; policy enforced at every hop; 26 threat classes modelled, from GNSS spoofing to attacks on the security system itself.</p></article>
+    <article class="card planecard" id="xsov"><span class="code x">XSOV</span><h3>Sovereignty and data governance</h3><p>Data classes S1–S4 decide where data may travel and be processed; the most sensitive never leave an air-gapped Canadian enclave; a residency guard blocks any route that would break a commitment, even during a storm.</p></article>
+    <article class="card planecard" id="xreg"><span class="code x">XREG</span><h3>Regulation and compliance</h3><p>42 obligations, each traced to a test and a monitor: space licensing (RSSSA), spectrum, privacy (PIPEDA, Québec Law 25, GDPR), the EU AI Act and Data Act, export controls, and the standards our cryptography and telemetry follow.</p></article>
+    <article class="card planecard" id="xrsk"><span class="code x">XRSK</span><h3>Risk and resilience</h3><p>71 registered risks with key risk indicators, from launch to end of life; a network of risk agents for space weather, debris, hardware ageing and regulation; Monte Carlo loss modelling for common-cause failures.</p></article>
+    <article class="card planecard" id="xdt"><span class="code x">XDT</span><h3>Digital twin and simulation</h3><p>A physics-based twin of the whole constellation that couples orbit, power, heat, links, data and workloads; 50 of 50 automated tests passing; every layer above has a model in it.</p></article>
+    <article class="card planecard" id="xops"><span class="code x">XOPS</span><h3>Mission and service operations</h3><p>Operations designed so a small team can run hundreds of satellites, with humans approving every consequential action.</p></article>
+    <article class="card planecard" id="xpgm"><span class="code x">XPGM</span><h3>Programme, QA and engineering governance</h3><p>Requirements traced from layer to test; seven test levels with gates; AI-assisted delivery with human-owned golden records.</p></article>
+  </div>
+</section>
+
+<section class="block" id="onefire">
+  <div class="head"><span class="eyebrow">One fire, through the whole stack</span><h2>Follow a single detection from photon to alert</h2></div>
+  <ol class="steps">
+    <li><div><h3>Capture</h3><p>a thermal frame is hashed and signed in the FPGA</p><span class="refs"><a href="#l06">L06</a><a href="#l08">L08</a></span></div></li>
+    <li><div><h3>Detect</h3><p>physics gate and neural verifier on the satellite</p><span class="refs"><a href="#l17">L17</a></span></div></li>
+    <li><div><h3>Publish</h3><p>a signed event enters the Zone-0 log</p><span class="refs"><a href="#l14">L14</a></span></div></li>
+    <li><div><h3>Relay</h3><p>custody copy to the in-plane neighbour over a 10 Gb/s optical link</p><span class="refs"><a href="#l09">L09</a><a href="#l10">L10</a></span></div></li>
+    <li><div><h3>Deliver</h3><p>a 149-byte authenticated alert reaches the ground in about 1.5 minutes</p><span class="refs"><a href="#l10">L10</a><a href="#xsec">XSEC</a></span></div></li>
+    <li><div><h3>Act</h3><p>responders and the sovereign core receive it; agents explain every step</p><span class="refs"><a href="#l19">L19</a><a href="#l21">L21</a></span></div></li>
+    <li><div><h3>Learn</h3><p>the model improves through federated learning, with a human approving each update</p><span class="refs"><a href="#l18">L18</a></span></div></li>
+  </ol>
+</section>
+
+<section class="block" id="twin">
+  <div class="two">
+    <div class="head"><span class="eyebrow">Every layer has a model</span><h2>Connected to the digital twin</h2>
       <p>Power, thermal, compute and network limits interact in orbit. The digital twin couples them, so a change to one layer is checked against all the others before it is built.</p>
       <p><a class="btn" href="digital-twin.html">See the digital twin</a></p></div>
-    <ul class="ticks"><li>Sensors and links ↔ orbit and network models</li><li>Compute ↔ compute and power models</li>
-      <li>Hardware heat ↔ thermal model</li><li>Applications ↔ workloads and dispatch controllers</li></ul>
+    <ul class="ticks">
+      <li>Orbit and illumination ↔ <a href="#l01">L01</a>, <a href="#l04">L04</a></li>
+      <li>Power and battery ↔ <a href="#l03">L03</a>, <a href="#l04">L04</a></li>
+      <li>Heat and phase-change buffers ↔ <a href="#l05">L05</a>, <a href="#l06">L06</a></li>
+      <li>Workloads and placement ↔ <a href="#l06">L06</a>, <a href="#l12">L12</a>, <a href="#l17">L17</a></li>
+      <li>Links and routing ↔ <a href="#l09">L09</a>, <a href="#l10">L10</a></li>
+      <li>Event log and agents ↔ <a href="#l14">L14</a>, <a href="#l19">L19</a></li>
+    </ul>
   </div>
 </section>
-<section class="block"><div class="wrap"><div class="connected"><span class="eyebrow">Connected</span>
-  <span>Wildfire detection <a href="wildfire.html">runs on</a> the <a href="technology-stack.html">technology stack</a>, which the <a href="digital-twin.html">digital twin</a> models end to end.</span></div></div></section>
+
+</div>
+</div>
+
+<section class="block night">
+  <div class="wrap two">
+    <div class="head"><span class="eyebrow">Closing</span><h2>Build it with us</h2>
+      <p>Seraphim Summit 2027: Toronto, 21–22 June, and Montréal, 14–15 July. <a href="mailto:Shahin.Vakilinia@ArchangX.com">Shahin.Vakilinia@ArchangX.com</a></p></div>
+    <div class="actions center"><a class="btn" href="summit-2027.html">Summit 2027</a><a class="btn ghost" href="contact.html">Contact</a></div>
+  </div>
+</section>
 </main>
 <footer class="site">
   <div class="wrap">
     <img src="assets/logo-dark.png" alt="ArchangX" width="280" height="142">
     <nav aria-label="Footer"><a href="index.html">Home</a><a href="wildfire.html">Wildfire AI</a><a href="technology-stack.html">Technology Stack</a><a href="digital-twin.html">Digital Twin</a><a href="exhibitions.html">Exhibitions</a><a href="summit-2027.html">Summit 2027</a><a href="about.html">About Shahin</a><a href="contact.html">Contact</a></nav>
-    <p>© <span class="year">2026</span> ArchAngX Corp. · Space data centres, wildfire AI and digital twins.</p>
+    <p>© <span class="year">2026</span> ArchangX Corp. · Space data centres, wildfire AI and digital twins.</p>
   </div>
 </footer>
 <script>document.querySelectorAll(".year").forEach(e => e.textContent = new Date().getFullYear());</script>
+<script>
+// Stack diagram: each band is a button that shows or hides its layer chips. Enter and Space work because they are
+// real buttons. Opening a layer link from a collapsed band (e.g. from the planes bar or a hash) expands that band.
+(() => {
+  const bands = [...document.querySelectorAll(".band")];
+  const setOpen = (band, open) => {
+    const btn = band.querySelector("button"), chips = band.querySelector(".chips");
+    btn.setAttribute("aria-expanded", String(open)); chips.hidden = !open;
+  };
+  bands.forEach(band => band.querySelector("button").addEventListener("click", () =>
+    setOpen(band, band.querySelector("button").getAttribute("aria-expanded") !== "true")));
+  // In-page table of contents: highlight the section currently in view.
+  const toc = document.querySelector(".toc"), links = toc ? [...toc.querySelectorAll("a")] : [];
+  if (links.length && "IntersectionObserver" in window) {
+    const byId = new Map(links.map(a => [a.getAttribute("href").slice(1), a]));
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(a => a.removeAttribute("aria-current"));
+      byId.get(e.target.id)?.setAttribute("aria-current", "true");
+    }), { rootMargin: "-20% 0px -70% 0px" });
+    byId.forEach((a, id) => { const s = document.getElementById(id); if (s) io.observe(s); });
+  }
+})();
+</script>
 </body>
 </html>

@@ -356,3 +356,93 @@ ol.timeline h3 + p { margin-top: 6px; color: var(--muted); font-size: 16px; }
   html { scroll-behavior: auto; }
   a.card, .btn, .announce, .fit a, .slide img { transition: none; }
 }
+
+/* Technology Stack page: 21 layers in six bands, seven cross-cutting planes. Band colours all pass WCAG AA with white text. */
+:root { --b1: #121a16; --b2: #a64a12; --b3: #0b3d23; --b4: #0f5a32; --b5: #1a5f8a; --b6: #7a1f5c; }
+main [id] { scroll-margin-top: 96px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 8px 0 0; padding: 0; }
+.stats > div { padding: 18px 20px; border-radius: var(--radius-sm); background: var(--glass); border: 1px solid var(--glass-line); }
+.stats dt { font: 700 clamp(26px, 3vw, 36px)/1.1 var(--display); letter-spacing: -.02em; color: var(--on-dark); font-variant-numeric: tabular-nums; }
+.stats dd { margin: 6px 0 0; font-size: 14.5px; line-height: 1.45; color: var(--night-muted); }
+.page-hero .stats-note { font-size: 14px; opacity: .85; }
+@media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .stats { grid-template-columns: 1fr; } }
+/* sticky in-page contents on wide screens */
+.withtoc { display: grid; gap: 0 40px; }
+.toc { display: none; }
+@media (min-width: 1101px) {
+  .withtoc { grid-template-columns: 190px minmax(0, 1fr); }
+  .toc { display: grid; gap: 2px; align-content: start; align-self: start; position: sticky; top: 104px; padding-top: clamp(64px, 8vw, 104px); }
+  .toc b { font: 700 12px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--flame-ink); margin-bottom: 8px; }
+  .toc a { font-size: 14.5px; color: var(--muted); text-decoration: none; padding: 6px 10px; border-left: 2px solid var(--line); }
+  .toc a:hover { color: var(--ink); }
+  .toc a[aria-current="true"] { color: var(--wing); font-weight: 600; border-left-color: var(--wing-bright); }
+}
+/* the stack diagram: six band buttons on the left, the planes bar on the right */
+.stackviz { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 16px; align-items: stretch; }
+.bands { display: grid; gap: 8px; }
+.band { border-radius: 14px; color: var(--on-dark); overflow: hidden; box-shadow: var(--shadow-sm); }
+.band.b1 { background: var(--b1); } .band.b2 { background: var(--b2); } .band.b3 { background: var(--b3); }
+.band.b4 { background: var(--b4); } .band.b5 { background: var(--b5); } .band.b6 { background: var(--b6); }
+.band button { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; align-items: center; width: 100%; padding: 18px 22px; border: 0;
+               background: transparent; color: inherit; text-align: left; cursor: pointer; font: inherit; }
+.band button:hover { background: rgba(255, 255, 255, .08); }
+.band button:focus-visible { outline: 3px solid var(--flame-1); outline-offset: -4px; }
+.band .band-name { font: 700 18px/1.3 var(--display); letter-spacing: -.01em; }
+.band .band-range { font: 700 12px/1 var(--sans); letter-spacing: .1em; padding: 6px 10px; border-radius: 99px; background: rgba(255, 255, 255, .14); }
+.band .caret { width: 10px; height: 10px; border: solid currentColor; border-width: 0 2px 2px 0; rotate: 45deg; translate: 0 -2px; transition: rotate .25s var(--ease), translate .25s var(--ease); }
+.band button[aria-expanded="true"] .caret { rotate: 225deg; translate: 0 3px; }
+.band .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 16px; }
+.band .chips a { display: inline-flex; gap: 6px; align-items: baseline; padding: 7px 12px; border-radius: 99px; font: 500 14px/1.3 var(--sans);
+                 color: var(--ink); background: var(--card); text-decoration: none; }
+.band .chips a:hover { background: var(--paper); }
+.band .chips a b { font-size: 12px; letter-spacing: .06em; color: var(--flame-ink); }
+.planebar { display: grid; grid-auto-rows: 1fr; gap: 4px; padding: 6px; border-radius: 14px; background: var(--night); color: var(--night-ink); box-shadow: var(--shadow-sm); }
+.planebar a { display: grid; align-content: center; gap: 2px; padding: 8px 10px; border-radius: 10px; color: inherit; text-decoration: none; }
+.planebar a:hover { background: var(--glass-2); }
+.planebar a b { font: 700 12px/1.2 var(--sans); letter-spacing: .1em; color: var(--wing-bright); }
+.planebar a span { font-size: 12px; line-height: 1.3; color: var(--night-muted); }
+@media (max-width: 767px) {
+  .stackviz { grid-template-columns: 1fr; }
+  .planebar { grid-auto-rows: auto; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .band button { grid-template-columns: 1fr auto; } .band .caret { grid-column: 2; grid-row: 1; justify-self: end; } .band .band-range { grid-row: 2; }
+}
+/* band sections and layer cards */
+.bandsec .head { max-width: none; margin-bottom: 28px; }
+.bandsec .subtitle { margin-top: -6px; font-size: 18px; }
+.eyebrow.b1, .eyebrow.b2, .eyebrow.b3, .eyebrow.b4, .eyebrow.b5, .eyebrow.b6 { color: var(--on-dark); border-color: transparent; }
+.eyebrow.b1::before, .eyebrow.b2::before, .eyebrow.b3::before, .eyebrow.b4::before, .eyebrow.b5::before, .eyebrow.b6::before { background: var(--on-dark); box-shadow: none; }
+.eyebrow.b1 { background: var(--b1); } .eyebrow.b2 { background: var(--b2); } .eyebrow.b3 { background: var(--b3); }
+.eyebrow.b4 { background: var(--b4); } .eyebrow.b5 { background: var(--b5); } .eyebrow.b6 { background: var(--b6); }
+.layers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 767px) { .layers { grid-template-columns: 1fr; } }
+.layercard::before, .planecard::before { display: none; }
+.code { display: inline-flex; width: fit-content; padding: 4px 9px; border-radius: 6px; font: 700 12px/1.2 var(--sans); letter-spacing: .1em;
+        color: var(--flame-ink); background: color-mix(in srgb, var(--flame-2) 10%, transparent); border: 1px solid color-mix(in srgb, var(--flame-2) 22%, transparent); }
+.code.x { color: var(--wing); background: color-mix(in srgb, var(--wing-bright) 12%, transparent); border-color: color-mix(in srgb, var(--wing-bright) 32%, transparent); }
+.cards.planes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .cards.planes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .cards.planes { grid-template-columns: 1fr; } }
+/* one fire through the stack: numbered steps with CSS arrows, vertical on small screens */
+ol.steps { counter-reset: step; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 24px 12px; }
+ol.steps li { position: relative; display: grid; gap: 10px; justify-items: center; text-align: center; }
+ol.steps li::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+                      background: var(--flame); color: var(--on-dark); font: 700 17px/1 var(--display); box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--flame-3) 70%, transparent); }
+ol.steps li:not(:last-child)::after { content: ""; position: absolute; top: 21px; left: calc(50% + 30px); right: calc(-50% + 30px); height: 2px;
+                                        background: linear-gradient(90deg, var(--flame-2), var(--line)); }
+ol.steps h3 { font-size: 18px; }
+ol.steps p { margin: 0; font-size: 14.5px; color: var(--muted); }
+ol.steps .refs { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+ol.steps .refs a { padding: 3px 8px; border-radius: 6px; font: 700 11.5px/1.2 var(--sans); letter-spacing: .08em; color: var(--flame-ink);
+                   background: color-mix(in srgb, var(--flame-2) 10%, transparent); border: 1px solid color-mix(in srgb, var(--flame-2) 22%, transparent); text-decoration: none; }
+@media (max-width: 1000px) { ol.steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } ol.steps li:nth-child(4)::after { display: none; } }
+@media (max-width: 640px) {
+  ol.steps { grid-template-columns: 1fr; gap: 18px; }
+  ol.steps li { grid-template-columns: 44px 1fr; justify-items: start; text-align: left; align-items: start; column-gap: 16px; }
+  ol.steps li > div { display: grid; gap: 6px; }
+  ol.steps li::after { display: none; }
+  ol.steps .refs { justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: no-preference) { .band .chips { animation: rise .3s var(--ease) both; } }
+@media (prefers-reduced-motion: reduce) { .band .caret { transition: none; } }
+.band .chips[hidden] { display: none; }
