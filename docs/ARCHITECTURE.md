@@ -29,12 +29,19 @@ flowchart LR
   C --> A[GitHub Actions<br/>.github/workflows/deploy.yml]
   A --> T{tools/check_site.py<br/>every link and file exists?}
   T -- no --> X[Run fails,<br/>live site unchanged]
-  T -- yes --> U[Upload site/ as the<br/>Pages artifact]
+  T -- yes --> F[tools/fingerprint_assets.sh<br/>assets/x.css → assets/x.css?v=hash]
+  F --> U[Upload site/ as the<br/>Pages artifact]
   U --> D[deploy-pages:<br/>new version live in 1-2 min]
 ```
 
 The check runs before every publish, so a broken link or a missing image stops the deploy instead of reaching
 visitors. Concurrency is `cancel-in-progress`: if two pushes land close together, only the newest is published.
+
+**Caching.** GitHub Pages serves every file with `Cache-Control: max-age=600`, which we cannot change. Without help,
+a reload after a deploy shows the new HTML with the browser's cached old stylesheet. The fingerprint step adds a
+content hash to every `assets/...` URL in the published copy, so a changed file gets a new URL and is fetched at
+once. HTML itself can still be served from a visitor's cache for up to 10 minutes; a normal reload fetches the new
+page. Nobody needs to clear their cache. The source files keep plain URLs (see [DECISIONS.md](DECISIONS.md), D7).
 
 ## 3. Site map
 
@@ -68,9 +75,11 @@ site/                      everything that is published
   assets/logo-dark.png     full logo with white wordmark, dark backgrounds
   assets/emblem*.png       wings-and-flame emblem (section marks, header, watermarks)
   assets/favicon.ico, apple-touch-icon.png
+  assets/sdc-io-*.jpg      SDC-IO architecture diagrams (Exhibitions slideshow)
   CNAME                    www.archangx.com (tells GitHub Pages the custom domain)
   .nojekyll                serve files as-is, no Jekyll processing
 tools/check_site.py        link and file checker, run locally and in CI
+tools/fingerprint_assets.sh   cache busting: adds ?v=<hash> to asset URLs, CI only
 .github/workflows/deploy.yml   the publish pipeline
 docs/                      this documentation
 ```
@@ -83,6 +92,7 @@ docs/                      this documentation
 | Stylesheet (`site/assets/style.css`) | Look and layout of every page | edit, push |
 | Contact form (`contact.html`) | Composes an email in the visitor's own mail app (`mailto:`); nothing is sent or stored by the site | inline script on the page |
 | Link checker (`tools/check_site.py`) | Blocks a deploy with a broken link or missing file | Python, no dependencies |
+| Asset fingerprinting (`tools/fingerprint_assets.sh`) | Gives changed CSS and images new URLs, so browsers never show stale styles | Bash, runs in CI only |
 | GitHub Actions workflow | Check, package and publish on every push to `main` | `.github/workflows/deploy.yml` |
 | GitHub Pages | Hosting, CDN, HTTPS certificate (Let's Encrypt), bare-domain redirect | repo Settings → Pages |
 | Squarespace DNS | Points the domain at GitHub; keeps the Google Workspace email records | Squarespace → Domains → archangx.com → DNS |

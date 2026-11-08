@@ -10,9 +10,12 @@ no framework, no backend. Hosted on GitHub Pages; **every push to `main` goes li
 - `site/`: everything that is published. One self-contained HTML file per page, plus `site/assets/style.css`
   (shared by every page), logos and icons in `site/assets/`, `CNAME` (`www.archangx.com`) and `.nojekyll`.
 - `tools/check_site.py`: link checker that CI runs before deploying.
-- `.github/workflows/deploy.yml`: runs the checker, then publishes `site/` to GitHub Pages.
+- `tools/fingerprint_assets.sh`: CI-only cache busting; adds `?v=<content hash>` to every `assets/...` URL in the
+  published copy, so browsers fetch changed CSS and images without a cache clear. It rewrites files in place: don't
+  run it on your working copy.
+- `.github/workflows/deploy.yml`: runs the checker, fingerprints asset URLs, then publishes `site/` to GitHub Pages.
 - `docs/`: ARCHITECTURE, DEPLOYMENT (DNS/HTTPS), OPERATIONS (update, roll back, troubleshoot), DECISIONS
-  (design records D1-D6), and `docs/events/` (event material, e.g. the Luma pack for Summit 2027).
+  (design records D1-D7), and `docs/events/` (event material, e.g. the Luma pack for Summit 2027).
 
 Pages: `index`, `wildfire`, `technology-stack`, `digital-twin`, `exhibitions`, `summit-2027`, `about`, `contact`.
 
@@ -37,6 +40,8 @@ There are no tests, package manager or dependencies beyond Python 3 for the chec
   domains. The contact form only opens a `mailto:` link; nothing is stored.
 - Biography content on `about.html` must come only from information Shahin has provided (decision D6). Don't
   invent degrees, roles or claims.
+- Reference assets as plain relative paths in double quotes (`href="assets/style.css"`, `url(emblem.png)`). Never
+  add `?v=` version strings by hand; the deploy adds them.
 - Line endings are LF (`.gitattributes`); keep files UTF-8.
 - Run `python tools/check_site.py` after any change to links, images or page names. A failing check makes the
   deploy fail and the live site stays unchanged.

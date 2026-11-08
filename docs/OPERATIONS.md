@@ -38,7 +38,8 @@ The previous version is live again in 1-2 minutes.
 | Symptom | Likely cause | What to do |
 |---|---|---|
 | Deploy run is red at "Check every linked file exists" | a link or image path is wrong | run `python tools/check_site.py` locally, fix the listed paths |
-| Change not visible | browser cache | hard refresh (Ctrl+F5) or a private window; check the Actions run finished |
+| Change not visible | the page itself is cached for up to 10 minutes (GitHub Pages `max-age=600`) | check the Actions run finished, then reload normally; CSS and images get new URLs on every deploy, so no cache clearing is needed |
+| Old styles or images still show after a deploy and a reload | that asset link isn't a plain double-quoted `assets/<file>` path (e.g. single quotes), so the deploy didn't add a hash to it | fix the link; see "Caching" in ARCHITECTURE.md. A hand-written `?v=` fails the link check instead |
 | "Your connection isn't private" | certificate not issued yet, or expired | see DEPLOYMENT.md section 3 |
 | Site shows "Website Expired" | DNS points back at Squarespace | check the DNS records in DEPLOYMENT.md section 2 |
 | 404 "Site not found" from GitHub | custom domain removed in repo settings | Settings → Pages → custom domain `www.archangx.com` |
