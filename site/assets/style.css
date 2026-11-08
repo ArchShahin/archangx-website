@@ -118,6 +118,8 @@ section.block:not(.night) + section.block:not(.night) { padding-top: 0; }
 .card::before { content: ""; height: 3px; width: 36px; border-radius: 3px; background: var(--flame); margin-bottom: 6px; }
 .card:has(> .tag)::before { display: none; }
 .card p { color: var(--muted); font-size: 16px; }
+.card h3 a { color: inherit; }
+.card h3 a:hover { color: var(--wing); }
 a.card { text-decoration: none; color: var(--ink); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
 a.card::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
                 background: var(--flame); opacity: 0; transition: opacity .3s var(--ease);

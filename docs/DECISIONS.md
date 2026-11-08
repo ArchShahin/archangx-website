@@ -49,6 +49,11 @@ Data Systems at Invest in Canada, satellite, risk management, Ericsson, Telus, G
 LinkedIn URL (linkedin.com/in/vakilinia). The About page uses those plus what the public profile shows (Concordia
 University 2011-2015 and thesis topic, Telesat, GCP support as a Telus vendor, ETS). Exact titles and dates for the
 other roles are still to be added from Shahin.
+**Update (2026-11-08, later).** Shahin added: about three years with NVIDIA edge GPUs at Nutrien, Risk Model
+Architect at EQ Bank, public-sector data architect (Invest in Canada), 5G and cloud data centre automation at
+Ericsson, PwC, a bachelor's and master's in electrical and computer engineering, many published papers, the Frank
+Gehry dream and being a proud Canadian. No public Google Scholar profile was found, so the page links a Scholar
+search and ORCID 0000-0002-6281-9543 (the ID publication databases list for his papers).
 
 ## D7. Cache busting at deploy time, not in the source (2026-11-07)
 
