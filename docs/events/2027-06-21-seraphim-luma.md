@@ -1,6 +1,6 @@
 # Seraphim Summit 2027: Luma event pack
 
-Copy each block into the matching Luma field (lu.ma → Create Event). Status: draft, not published.
+Copy each block into the matching Luma field (lu.ma → Create Event). Status: draft, not published. The Montreal edition (14-15 July) has its own pack: 2027-07-14-seraphim-montreal-luma.md.
 No invitee is named as a speaker; add names only after each one confirms.
 
 ## Event settings
@@ -8,8 +8,8 @@ No invitee is named as a speaker; add names only after each one confirms.
 | Luma field | Value |
 |---|---|
 | Event name | Seraphim Summit 2027: Data Centres in Orbit |
-| Start | Mon 21 June 2027, 08:30 (America/Toronto) |
-| End | Tue 22 June 2027, 18:00 (America/Toronto). Hackathon hours to confirm |
+| Start | Mon 21 June 2027, 08:00 (America/Toronto) |
+| End | Tue 22 June 2027, 18:00 (America/Toronto). Hackathon 08:30-18:00 |
 | Location | Toronto, Ontario. Venue to be announced (choose "Location TBD") |
 | Visibility | Private until the venue and keynote are confirmed, then Public |
 | Tickets | Free: Canadian Space Agency, Telesat and MDA Space staff (official email), students worldwide (online) and the hackathon. Paid tier: industry and investors (price to be set); sponsors get exhibition space |
@@ -29,18 +29,19 @@ Seraphim is ArchangX's protocol stack for data centres in orbit: onboard compute
 **Day 1 · Monday 21 June · Conference and exhibition**
 
 - 08:45 Welcome and land acknowledgement
+- 08:00 Registration and coffee; exhibition hall opens
 - 09:00 Opening keynote: *Seraphim, a protocol stack for data centres in orbit*, by Shahin Vakilinia (ArchangX). Live on the digital twin: a fire ignites, the satellite detects it, a 149-byte alert reaches the ground in about 90 seconds, and AI agents explain every step.
-- Panel 1 · **Qubits in Orbit**: where quantum computing helps space data centres and where it doesn't; post-quantum cryptography and quantum key distribution between satellites
-- Panel 2 · **From Space Weather to Sovereignty**: risk and resilience for orbital data centres, from geomagnetic storms and radiation to debris, insurance and data residency
-- Panel 3 · **Data Platforms in Orbit**: from Kafka to the lakehouse when the network keeps disconnecting
-- Panel 4 · **Power, Heat and Silicon**: radiation-tolerant GPUs and TPUs, high-voltage DC, thermal design, optical terminals
-- Panel 5 · **Macro-Agents and Skills**: agentic AI that runs infrastructure, observing and recommending without commanding
-- Panel 6 · **After Kubernetes**: orchestrating clusters that lose contact for an hour at a time
-- Panel 7 · **AI Sovereignty, 6G and Self-Organizing Networks**: who controls data, models and networks when compute moves to orbit, and Seraphim's Canada-first connectivity plan
-- Panel 8 · **Fire, From Lightning to War**: onboard wildfire detection, early warning in the North, and a global fire index
-- Fireside conversations with industry partners (to be announced)
+- 09:50 Panel 1 · **Qubits in Orbit**: where quantum computing helps space data centres and where it doesn't; post-quantum cryptography and quantum key distribution between satellites
+- 10:55 Panel 2 · **From Space Weather to Sovereignty**: risk and resilience for orbital data centres, from geomagnetic storms and radiation to debris, insurance and data residency
+- 11:45 Panel 3 · **Data Platforms in Orbit**: from Kafka to the lakehouse when the network keeps disconnecting
+- 13:30 Panel 4 · **Power, Heat and Silicon**: radiation-tolerant GPUs and TPUs, high-voltage DC, thermal design, optical terminals
+- 14:20 Panel 5 · **Macro-Agents and Skills**: agentic AI that runs infrastructure, observing and recommending without commanding
+- 15:25 Panel 6 · **After Kubernetes**: orchestrating clusters that lose contact for an hour at a time
+- 16:15 Panel 7 · **AI Sovereignty, 6G and Self-Organizing Networks**: who controls data, models and networks when compute moves to orbit, and Seraphim's Canada-first connectivity plan
+- 17:05 Panel 8 · **Fire, From Lightning to War**: onboard wildfire detection, early warning in the North, and a global fire index
+- 10:35 Break and poster session · 12:30 Lunch and a fireside conversation · 15:05 Break and a fireside conversation (partners to be announced)
 - All day: exhibition hall with the live digital twin, partner booths and a poster session for research and student work
-- 17:30 Closing: **Zero Wildfire 2030**
+- 17:50 Closing: **Zero Wildfire 2030**
 - 19:00 Evening celebration (families welcome)
 
 **Day 2 · Tuesday 22 June · Hackathon on the Seraphim digital twin**
@@ -79,7 +80,7 @@ university email addresses; please register again with one of those."
 
 - [ ] Confirm the Indigenous fire-stewardship speaker for 08:45
 - [ ] Confirm the venue and capacity
-- [ ] Confirm Day 2 hours (draft: 09:00-18:00)
+- [ ] Confirm Day 2 hours (draft: 08:30 check-in, 09:00 kickoff, 16:00 submissions close, 17:30 prizes, 18:00 close)
 - [ ] Check that contact@archangx.com exists, or change it to shahin.vakilinia@archangx.com
 - [ ] Add speaker names only after each one confirms
 - [ ] Add the Luma link to the website (Exhibitions page) after publishing

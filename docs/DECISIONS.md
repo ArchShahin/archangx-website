@@ -44,6 +44,11 @@ depends on both.
 **Decision.** The About page states only what Shahin's own documents show (role, programme, areas of work).
 **Why.** A public biography must be accurate. Degrees, prior roles, a photo or a LinkedIn link are added when
 Shahin provides them.
+**Update (2026-11-08).** Shahin provided his PhD, his prior roles (NVIDIA technologies at Nutrien, Architect of
+Data Systems at Invest in Canada, satellite, risk management, Ericsson, Telus, Google Cloud Platform) and his
+LinkedIn URL (linkedin.com/in/vakilinia). The About page uses those plus what the public profile shows (Concordia
+University 2011-2015 and thesis topic, Telesat, GCP support as a Telus vendor, ETS). Exact titles and dates for the
+other roles are still to be added from Shahin.
 
 ## D7. Cache busting at deploy time, not in the source (2026-11-07)
 
