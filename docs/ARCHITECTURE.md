@@ -9,7 +9,7 @@ There is no server, no database, and no third-party script, font or tracker.
 ```mermaid
 flowchart LR
   V[Visitor's browser] -->|1. look up www.archangx.com| DNS[Squarespace DNS<br/>nsb1-4.squarespacedns.com]
-  DNS -->|CNAME archshahin.github.io| GH[(GitHub Pages CDN<br/>185.199.108-111.153)]
+  DNS -->|CNAME archangx.github.io| GH[(GitHub Pages CDN<br/>185.199.108-111.153)]
   V -->|2. HTTPS request<br/>Let's Encrypt certificate| GH
   GH -->|3. static files:<br/>HTML, CSS, images| V
   B[archangx.com<br/>bare domain] -.->|A records to GitHub,<br/>301 redirect| GH
@@ -17,7 +17,7 @@ flowchart LR
 
 | Name | DNS record (Squarespace) | Result |
 |---|---|---|
-| `www.archangx.com` | `CNAME archshahin.github.io` | serves the site |
+| `www.archangx.com` | `CNAME archangx.github.io` | serves the site |
 | `archangx.com` | `A 185.199.108.153`, `.109.153`, `.110.153`, `.111.153` | GitHub redirects to `https://www.archangx.com` |
 | `@` MX / TXT | Google Workspace (`smtp.google.com`, SPF, DKIM) | email, unaffected by the website |
 
@@ -110,8 +110,8 @@ docs/                      this documentation
   personal email domains are refused in the browser. The address was activated once via FormSubmit's confirmation email.
 - HTTPS everywhere: Let's Encrypt certificate for `www.archangx.com` and `archangx.com`, renewed by GitHub;
   "Enforce HTTPS" is on, so `http://` redirects to `https://`.
-- The domain is verified on the ArchShahin account, so no other GitHub account can publish under it.
-- Publishing requires push access to `ArchShahin/archangx-website`; the workflow has only the `pages: write`
+- The domain is verified on the ArchangX organization, so no other GitHub account can publish under it.
+- Publishing requires push access to `ArchangX/archangx-website`; the workflow has only the `pages: write`
   and `id-token: write` permissions it needs.
 
 ## 7. Cost

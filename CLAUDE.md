@@ -52,7 +52,8 @@ There are no tests, package manager or dependencies beyond Python 3 for the chec
 - Push to `main` = deploy to production. Use a feature branch (e.g. `feature/...`) for work that isn't ready and
   merge when it is.
 - Roll back with `git revert <commit> && git push`.
-- Domain DNS is at Squarespace (`www` CNAME to `archshahin.github.io`); don't touch MX/TXT records, as Google
+- The repo is owned by the ArchangX GitHub organization (`ArchangX/archangx-website`). Domain DNS is at Squarespace (`www`
+  CNAME to `archangx.github.io`); don't touch MX/TXT records, as Google
   Workspace email depends on them. See `docs/DEPLOYMENT.md`.
 
 ## History

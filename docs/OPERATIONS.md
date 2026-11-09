@@ -43,6 +43,7 @@ The previous version is live again in 1-2 minutes.
 | "Your connection isn't private" | certificate not issued yet, or expired | see DEPLOYMENT.md section 3 |
 | Site shows "Website Expired" | DNS points back at Squarespace | check the DNS records in DEPLOYMENT.md section 2 |
 | 404 "Site not found" from GitHub | custom domain removed in repo settings | Settings → Pages → custom domain `www.archangx.com` |
+| 404 on the domain right after the repository was transferred or renamed; `archangx.github.io/archangx-website/` shows the README | the transfer reset Pages to "Deploy from a branch" and dropped the custom domain | follow DEPLOYMENT.md section 5 |
 | Email stopped working | MX/TXT records changed | restore the Google Workspace records (DEPLOYMENT.md section 2) |
 
 ## Regular checks
