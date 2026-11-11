@@ -81,3 +81,23 @@ posture (a constant watch), never as a technological capability.
 defence capability would damage credibility and could carry regulatory consequences.
 **Revisit when.** Flight data or an approved programme changes a label or Aurora's status; change the page and this
 record together.
+
+## D9. Paid ticketing through Stripe Payment Links; no backend, no Stripe script on the site (2026-11-10)
+
+**Context.** Summit and Exhibition 2027 sells passes and booths (Jira epic SCRUM-26, stories SCRUM-1374 to 1383).
+D1 and D4 rule out a server and third-party scripts, and the site is published by GitHub Pages.
+**Options.** Stripe Checkout with a serverless function (needs a cloud account and a secret in production);
+Stripe's Buy Button or Stripe.js embed (a third-party script on every ticket page); Eventbrite or similar
+(fees, their branding, their data); Stripe **Payment Links** (Stripe-hosted checkout reached by a plain `<a href>`).
+**Decision.** Payment Links. `stripe/catalogue.json` is the source of truth; `scripts/stripe/sync-catalogue.mjs`
+creates the Products, Prices and links idempotently and writes the public URLs to `site/data/summit-tickets.json`;
+`tools/render_tickets.py` writes the cards into `summit-tickets.html` and `exhibitions.html`, and CI fails if they are
+out of date. The Stripe key exists only in the `STRIPE_API_KEY` environment variable on the operator's machine;
+it is a restricted, agent-tagged key, test (sandbox) mode until Shahin explicitly goes live. Fulfilment is Stripe's
+receipt email plus an attendee CSV export (`scripts/stripe/export-attendees.mjs`); QR tickets and automatic emails
+would need a server and are deferred (version 2, needs approval).
+**Why.** Keeps D1 and D4 intact: nothing runs on our side, no script or embed touches visitors, and the pages work
+with JavaScript disabled. Prices, capacities, discounts, refund terms and tax are business decisions recorded in
+the catalogue and the Dashboard, never invented in code.
+**Revisit when.** Sales volume justifies QR check-in or automated emails (then a small webhook service, see
+`docs/OPERATIONS.md`), or Stripe changes Payment Links in a way the sync cannot express.

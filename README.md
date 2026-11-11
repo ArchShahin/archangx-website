@@ -1,7 +1,8 @@
 # archangx.com
 
-The ArchangX website: ten static pages, hosted free on GitHub Pages, published by GitHub Actions on every push.
-No servers, no third-party scripts or fonts.
+The ArchangX website: twelve static pages, hosted free on GitHub Pages, published by GitHub Actions on every push.
+No servers, no third-party scripts or fonts. Summit tickets are sold through Stripe Payment Links (plain links to
+Stripe-hosted checkout; see [`stripe/README.md`](stripe/README.md)).
 
 | Page | File |
 |---|---|
@@ -11,7 +12,10 @@ No servers, no third-party scripts or fonts.
 | Guardian Aurora: conceptual Arctic early-warning research module | `site/guardian-aurora.html` |
 | Technology Stack of Space Data Centres | `site/technology-stack.html` |
 | Digital Twin | `site/digital-twin.html` |
-| Exhibitions | `site/exhibitions.html` |
+| Exhibitions, with booth reservations for Summit 2027 | `site/exhibitions.html` |
+| Seraphim Summit 2027: programme, hackathon, free registration | `site/summit-2027.html` |
+| Tickets: passes sold through Stripe Payment Links (cards generated from `site/data/summit-tickets.json`) | `site/summit-tickets.html` |
+| Payment received (Stripe redirects here; noindex) | `site/summit-thanks.html` |
 | About (Shahin Vakilinia) | `site/about.html` |
 | Contact | `site/contact.html` |
 

@@ -18,7 +18,8 @@ no framework, no backend. Hosted on GitHub Pages; **every push to `main` goes li
   (design records D1-D7), and `docs/events/` (event material, e.g. the Luma pack for Summit 2027).
 
 Pages: `index`, `guardian` (Seraphim Guardian landing), `wildfire` (Guardian Uriel), `guardian-aurora`, `technology-stack`,
-`digital-twin`, `exhibitions`, `summit-2027`, `about`, `contact`. Product rules for Guardian: `docs/SERAPHIM_GUARDIAN.md`
+`digital-twin`, `exhibitions`, `summit-2027`, `summit-tickets` (Stripe Payment Links; cards generated from
+`site/data/summit-tickets.json` by `tools/render_tickets.py`, never edited by hand), `summit-thanks` (noindex), `about`, `contact`. Product rules for Guardian: `docs/SERAPHIM_GUARDIAN.md`
 and decision D8 (Guardian Aurora is conceptual and non-operational; readiness labels; no unverified performance claims).
 
 ## Commands
@@ -39,7 +40,9 @@ There are no tests, package manager or dependencies beyond Python 3 for the chec
   `eyebrow`, `two`, ...) rather than adding inline styles.
 - No third-party fonts, scripts, analytics or embeds (decision D4). The one deliberate exception is the Summit
   registration form in `summit-2027.html`, which POSTs to FormSubmit (`formsubmit.co`) and rejects personal email
-  domains. The contact form only opens a `mailto:` link; nothing is stored.
+  domains. The contact form only opens a `mailto:` link; nothing is stored. Ticket sales are plain links to Stripe
+  Payment Links (decision D9): no Stripe.js, Buy Button or iframe. The Stripe key lives only in the `STRIPE_API_KEY`
+  environment variable; never write it to a file, commit, log or Jira comment. See `stripe/README.md`.
 - Biography content on `about.html` must come only from information Shahin has provided (decision D6). Don't
   invent degrees, roles or claims.
 - Reference assets as plain relative paths in double quotes (`href="assets/style.css"`, `url(emblem.png)`). Never
