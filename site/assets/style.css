@@ -530,3 +530,27 @@ ol.steps .refs a { padding: 3px 8px; border-radius: 6px; font: 700 11.5px/1.2 va
   .layercard:not(.open) > .details { display: none; }
   .layercard { padding: 24px 22px; }
 }
+
+/* Tickets (summit-tickets.html, exhibitions.html#exhibit): cards rendered by tools/render_tickets.py. Status colours all pass AA with white text. */
+.cards.tickets { align-items: stretch; }
+.card.ticket { display: grid; grid-template-rows: auto auto auto 1fr auto auto; gap: 10px; align-content: start; }
+.ticket .price { margin: 0; font: 700 clamp(26px, 3vw, 32px)/1.1 var(--display); letter-spacing: -.02em; color: var(--ink); }
+.ticket .price small { display: block; margin-top: 4px; font: 500 13px/1.4 var(--sans); letter-spacing: 0; color: var(--muted); }
+.ticket .price.tba { font-size: 20px; color: var(--muted); }
+.ticket .ticks { margin: 0; }
+.ticket .ticks li { font-size: 15px; }
+.ticket .meta { margin: 0; font-size: 14px; color: var(--muted); }
+.ticket .btn { justify-self: start; align-self: end; }
+.tag.onsale { background: #0f5a32; color: var(--on-dark); border-color: transparent; }
+.tag.comingsoon { background: #1a5f8a; color: var(--on-dark); border-color: transparent; }
+.tag.soldout { background: #7a1f1f; color: var(--on-dark); border-color: transparent; }
+.tag.closed { background: #4a4f55; color: var(--on-dark); border-color: transparent; }
+.tag.pending { background: #a64a12; color: var(--on-dark); border-color: transparent; margin-right: 6px; }
+.btn.disabled { opacity: .55; cursor: not-allowed; pointer-events: none; }
+.updated { margin: 14px 0 0; font-size: 13.5px; }
+.legal .ticks li, .legal .card p { font-size: 15px; }
+.legal .ticks li b { color: var(--ink); }
+ol.steps.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+ol.steps.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1000px) { ol.steps.three { grid-template-columns: repeat(3, minmax(0, 1fr)); } ol.steps.three li:nth-child(4)::after { display: initial; } }
+@media (max-width: 640px) { ol.steps.three, ol.steps.five { grid-template-columns: 1fr; } }

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /summit-thanks.html
+
+Sitemap: https://www.archangx.com/sitemap.xml

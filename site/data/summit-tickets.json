@@ -1,0 +1,21 @@
+{
+  "generated_at": null,
+  "livemode": false,
+  "event": "ArchangX Summit and Exhibition 2027",
+  "currency": "cad",
+  "tax_note": "Prices in Canadian dollars. GST/HST and QST are added at checkout where they apply.",
+  "support_email": "shahin.vakilinia@archangx.com",
+  "editions": [
+    { "value": "toronto", "label": "Toronto, 21-22 June 2027" },
+    { "value": "montreal", "label": "Montreal, 14-15 July 2027" }
+  ],
+  "tickets": [
+    { "key": "summit-early-bird", "name": "Summit pass (early bird)", "kind": "pass", "currency": "cad", "includes": ["Day 1 conference and exhibition hall", "Opening keynote and eight panels", "Lunch, breaks and the evening celebration", "Day 2 hackathon as a spectator"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 },
+    { "key": "summit-standard", "name": "Summit pass (standard)", "kind": "pass", "currency": "cad", "includes": ["Day 1 conference and exhibition hall", "Opening keynote and eight panels", "Lunch, breaks and the evening celebration", "Day 2 hackathon as a spectator"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 },
+    { "key": "summit-student", "name": "Summit pass (student / academic)", "kind": "pass", "currency": "cad", "includes": ["Everything in the Summit pass", "Poster session slot for research or student work", "Valid student or academic ID checked at the door"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 },
+    { "key": "summit-virtual", "name": "Livestream pass", "kind": "pass", "currency": "cad", "includes": ["Live stream of the keynote and all eight panels", "Recordings for 30 days after the event", "Online access to the hackathon demos and prizes"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 },
+    { "key": "hackathon", "name": "Hackathon entry (22 June 2027)", "kind": "pass", "currency": "cad", "includes": ["Day 2 hackathon on the Seraphim digital twin, on site or online", "Track briefings, mentor office hours and judging", "Lunch on site"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 },
+    { "key": "exhibitor-booth", "name": "Exhibition booth", "kind": "booth", "currency": "cad", "includes": ["Booth in the exhibition hall for Day 1", "TODO(Shahin): booth size, table, power, number of included staff passes", "Listing on the Summit page and in the programme"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 },
+    { "key": "exhibitor-extra-pass", "name": "Additional exhibitor staff pass", "kind": "booth-addon", "currency": "cad", "includes": ["One extra staff pass for an exhibiting organisation", "Day 1 access, lunch and breaks", "Requires a booth reservation"], "sales_end": null, "capacity": null, "price_cents": null, "price_display": null, "url": null, "status": "coming_soon", "sold": 0 }
+  ]
+}
